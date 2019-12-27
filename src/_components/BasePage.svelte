@@ -3,12 +3,14 @@
     import {isMobileScreen} from "../util/util";
     import {fade} from 'svelte/transition';
     import {onMount} from "svelte";
-    import {title} from "../stores/general";
+    import {title, prominentNav} from "../stores/general";
 
     export let pageTitle = "";
+    export let useProminentNav = false;
 
     onMount(() => {
         $title = pageTitle;
+        $prominentNav = useProminentNav;
     });
 </script>
 
@@ -17,7 +19,7 @@
         {#if isMobileScreen()}
             <slot/>
         {:else}
-            <Paper class="main-paper">
+            <Paper>
                 <slot/>
             </Paper>
         {/if}
@@ -44,7 +46,7 @@
 
         .page-content {
             overflow: auto;
-            min-width: 20vw;
+            min-width: 25vw;
             min-height: 40vh;
         }
     }

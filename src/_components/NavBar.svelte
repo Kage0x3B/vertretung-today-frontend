@@ -3,16 +3,18 @@
     import IconButton from '@smui/icon-button';
 
     import {isMobileScreen} from "../util/util";
-    import {title} from "../stores/general";
+    import {title, prominentNav} from "../stores/general";
 
     export let setDrawerOpen;
 
     let navBarTitle = $title;
+    let prominent = $prominentNav;
 
     $: navBarTitle = $title;
+    $: prominent = $prominentNav;
 </script>
 
-<TopAppBar variant="static" dense={!isMobileScreen()} color='primary'>
+<TopAppBar variant="static" dense={!isMobileScreen()} prominent={prominent && isMobileScreen()} color='primary'>
     <Row>
         <Section>
             {#if isMobileScreen()}
@@ -21,9 +23,7 @@
             <Title>{navBarTitle}</Title>
         </Section>
         <Section align="end" toolbar>
-            <IconButton class="material-icons" aria-label="Download">file_download</IconButton>
-            <IconButton class="material-icons" aria-label="Print this page">print</IconButton>
-            <IconButton class="material-icons" aria-label="Bookmark this page">bookmark</IconButton>
+            <IconButton class="material-icons" aria-label="Settings">more_vert</IconButton>
         </Section>
     </Row>
 </TopAppBar>
