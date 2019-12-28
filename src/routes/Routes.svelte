@@ -4,6 +4,7 @@
     import Register from "./Register.svelte";
     import Help from "./Help.svelte";
     import Home from "./Home.svelte";
+    import Error from "./Error.svelte";
 </script>
 
 <Route path="/register">
@@ -17,4 +18,7 @@
 </Route>
 <Route path="/">
     <Home/>
+</Route>
+<Route path="">
+    <Error/>
 </Route>
