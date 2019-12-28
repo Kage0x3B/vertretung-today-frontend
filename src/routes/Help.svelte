@@ -1,13 +1,14 @@
 <script>
+    import {_} from "svelte-i18n";
     import BasePage from "../_components/BasePage.svelte";
 </script>
 
-<BasePage pageTitle="Hilfe">
-    <h1>Hilfe</h1>
+<BasePage pageTitle="page.help.title" allowUnauthorized>
+    <h1>{$_("page.help.title")}</h1>
 
     <hr>
 
     <p class="mdc-typography--body1">
-        Test Seite
+        Test Seite TODO REPLACE
     </p>
 </BasePage>

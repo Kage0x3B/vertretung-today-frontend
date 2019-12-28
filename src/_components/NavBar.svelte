@@ -1,29 +1,52 @@
 <script>
+    import {_} from "svelte-i18n";
     import TopAppBar, {Row, Section, Title} from '@smui/top-app-bar';
     import IconButton from '@smui/icon-button';
+    import {navigate} from "svelte-routing";
 
     import {isMobileScreen} from "../util/util";
-    import {title, prominentNav} from "../stores/general";
+    import {title, backButton, backUrl} from "../stores/general";
 
     export let setDrawerOpen;
 
-    let navBarTitle = $title;
-    let prominent = $prominentNav;
+    let navBarTitle;
+    let prominent;
+
+    let backButtonRequested;
+    let backButtonUrl;
+    let displayBackButton;
 
     $: navBarTitle = $title;
-    $: prominent = $prominentNav;
+
+    $: {
+        backButtonRequested = $backButton;
+        backButtonUrl = $backUrl;
+        displayBackButton = backButtonRequested || backButtonUrl;
+    }
+
+    function back() {
+        if (backButtonUrl) {
+            navigate(backButtonUrl, {replace: true});
+        } else {
+            window.history.back();
+        }
+    }
 </script>
 
-<TopAppBar variant="static" dense={!isMobileScreen()} prominent={prominent && isMobileScreen()} color='primary'>
+<TopAppBar variant="fixed" dense={!isMobileScreen()} color='primary'>
     <Row>
         <Section>
             {#if isMobileScreen()}
-                <IconButton class="material-icons" on:click={() => setDrawerOpen(true)}>menu</IconButton>
+                {#if displayBackButton}
+                    <IconButton class="material-icons" on:click={back}>arrow_back</IconButton>
+                {:else}
+                    <IconButton class="material-icons" on:click={() => setDrawerOpen(true)}>menu</IconButton>
+                {/if}
             {/if}
-            <Title>{navBarTitle}</Title>
+            <Title>{$_(navBarTitle)}</Title>
         </Section>
         <Section align="end" toolbar>
-            <IconButton class="material-icons" aria-label="Settings">more_vert</IconButton>
+            <!--<IconButton class="material-icons">more_vert</IconButton>-->
         </Section>
     </Row>
 </TopAppBar>

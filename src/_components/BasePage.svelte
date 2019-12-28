@@ -1,22 +1,33 @@
 <script>
     import Paper from "@smui/paper";
     import {isMobileScreen} from "../util/util";
+    import {loggedIn, title, backButton, backUrl} from "../stores/general";
     import {fade} from 'svelte/transition';
     import {onMount} from "svelte";
-    import {title, prominentNav} from "../stores/general";
+    import {navigate} from "svelte-routing";
 
     export let pageTitle = "";
-    export let useProminentNav = false;
+    export let backBtn = false;
+    export let back = "";
+    export let allowUnauthorized = false;
+    export let noPaper = false;
 
     onMount(() => {
+        if (!$loggedIn && !allowUnauthorized) {
+            navigate("/login", {replace: true});
+
+            return;
+        }
+
         $title = pageTitle;
-        $prominentNav = useProminentNav;
+        $backButton = backBtn;
+        $backUrl = back;
     });
 </script>
 
 <main class="page-wrapper">
     <div class="page-content" transition:fade="{{duration: 200}}">
-        {#if isMobileScreen()}
+        {#if noPaper || isMobileScreen()}
             <slot/>
         {:else}
             <Paper>
@@ -28,26 +39,33 @@
 
 <style>
     .page-wrapper {
-        overflow: hidden;
         height: 100%;
         box-sizing: border-box;
         background-color: #fff;
-        padding: 16px;
+        padding: 16px 8px 48px;
+    }
+
+    .page-content {
+        overflow: scroll;
+        height: 100%;
     }
 
     @media (min-width: 768px) {
         .page-wrapper {
-            background-color: #eee;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding: 10vh 0 0;
+            align-items: center;
+            background-color: #eee;
+            padding: 16px 0;
+            height: 95vh;
         }
 
         .page-content {
             overflow: auto;
-            min-width: 25vw;
-            min-height: 40vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+
+            max-width: 50vw;
         }
     }
 </style>

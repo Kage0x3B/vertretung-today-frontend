@@ -1,4 +1,4 @@
-export default function (axios, api) {
+export default function (axios) {
     function handleAuthError(reject) {
         return function (error) {
             if(!error.response) {

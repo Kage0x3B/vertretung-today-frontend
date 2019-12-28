@@ -3,7 +3,7 @@
     import BasePage from "../_components/BasePage.svelte";
     import api from "../api/api";
     import {isMobileScreen} from "../util/util";
-    import {tempUsername, tempPassword} from "../stores/general";
+    import {loggedIn, tempUsername, tempPassword} from "../stores/general";
 
     import {navigate} from "svelte-routing";
     import Textfield from "@smui/textfield";
@@ -12,30 +12,26 @@
     import Button, {Label} from '@smui/button';
     import LinearProgress from '@smui/linear-progress';
 
-    let username = "";
-    let password = "";
-    let passwordConfirm = "";
+    let accountUsername = $tempUsername;
+    let moodleUsername = "";
+    let moodlePassword = "";
 
-    let usernameInvalid;
-    let passwordInvalid;
-    let passwordConfirmInvalid;
+    let accountUsernameInvalid;
+    let moodleUsernameInvalid;
+    let moodlePasswordInvalid;
     let loading;
     let registerDisabled;
 
-    $: usernameInvalid = username.length < 3;
-    $: passwordInvalid = password.length < 6;
-    $: passwordConfirmInvalid = passwordConfirm !== password;
-    $: registerDisabled = usernameInvalid || passwordInvalid || passwordConfirmInvalid;
+    $: accountUsernameInvalid = accountUsername.length < 3;
+    $: moodleUsernameInvalid = moodleUsername.length < 1;
+    $: moodlePasswordInvalid = moodlePassword.length < 1;
+    $: registerDisabled = accountUsernameInvalid || moodleUsernameInvalid || moodlePasswordInvalid;
 
-    let usernameCustomValidationMsg = "";
-    let usernameValidationMsg;
-    let passwordCustomValidationMsg = "";
-    let passwordValidationMsg;
-    const passwordConfirmValidationMsg = "error.identicalPasswordsRequired";
+    let accountUsernameCustomValidationMsg = "";
+    let accountUsernameValidationMsg;
     let generalErrorMsg = "";
 
-    $: usernameValidationMsg = usernameCustomValidationMsg || "error.invalidUsernameLength";
-    $: passwordValidationMsg = passwordCustomValidationMsg || "error.invalidPasswordLength";
+    $: accountUsernameValidationMsg = accountUsernameCustomValidationMsg || "error.invalidUsernameLength";
 
     function onSubmit() {
         if (registerDisabled) {
@@ -46,20 +42,28 @@
 
         loading = true;
 
-        api.user.register(username, password).then(function () {
-            loading = false;
+        api.user.validateAccountMoodle(accountUsername, moodleUsername, moodlePassword).then(function () {
+            api.user.login($tempUsername, $tempPassword).then(function (response) {
+                loading = false;
 
-            $tempUsername = username;
-            $tempPassword = password;
-            navigate("/validate", {replace: true});
+                if(api.login(response)) {
+                    $loggedIn = true;
+                    navigate("/", {replace: true});
+                } else {
+                    generalErrorMsg = "error.validatedButLoginProblem";
+                }
+            }).catch(function (error) {
+                loading = false;
+                generalErrorMsg = "error.validatedButLoginProblem";
+            });
         }).catch(function (error) {
             loading = false;
 
             if (error.action === "showMessage") {
-                if (error.target === "usernameField") {
-                    usernameCustomValidationMsg = "error." + error.message;
-                } else if (error.target === "passwordField") {
-                    passwordCustomValidationMsg = "error." + error.message;
+                if (error.target === "accountUsernameField") {
+                    accountUsernameCustomValidationMsg = "error." + error.message;
+                } else if (error.target === "general") {
+                    generalErrorMsg = "error." + error.message;
                 }
             } else if (error.action === "connectionProblem") {
                 generalErrorMsg = "error.connectionProblem";
@@ -70,47 +74,46 @@
     }
 
     function resetCustomErrorMessages() {
-        usernameCustomValidationMsg = "";
-        passwordCustomValidationMsg = "";
+        accountUsernameCustomValidationMsg = "";
         generalErrorMsg = "";
     }
 </script>
 
-<BasePage pageTitle="page.register.title" allowUnauthorized>
+<BasePage pageTitle="page.validateMoodle.title" back="/validate" allowUnauthorized>
     <div class="center page-padding">
         {#if !isMobileScreen()}
-            <h2>{$_("page.register.title")}</h2>
+            <h2>{$_("page.validateMoodle.titleLong")}</h2>
         {/if}
         <form on:submit|preventDefault={onSubmit} novalidate>
             <div class="container">
-                <Textfield withLeadingIcon label={$_("general.usernameRequired")} bind:value={username}
+                <Textfield withLeadingIcon label={$_("general.usernameRequired")} bind:value={accountUsername}
                            on:click={resetCustomErrorMessages}
-                           invalid={(usernameInvalid && username.length > 0) || usernameCustomValidationMsg}
+                           invalid={(accountUsernameInvalid && accountUsername.length > 0) || accountUsernameCustomValidationMsg}
                            input$autocomplete="username">
                     <Icon class="material-icons">person</Icon>
                 </Textfield>
-                <HelperText validationMsg>{$_(usernameValidationMsg)}</HelperText>
+                <HelperText validationMsg>{$_(accountUsernameValidationMsg)}</HelperText>
             </div>
             <div class="container">
-                <Textfield withLeadingIcon type="password" label={$_("general.passwordRequired")} bind:value={password}
+                <Textfield withLeadingIcon label={$_("general.moodleUsernameRequired")} bind:value={moodleUsername}
                            on:click={resetCustomErrorMessages}
-                           invalid={(passwordInvalid && password.length > 0) || passwordCustomValidationMsg}>
-                    <Icon class="material-icons">lock</Icon>
+                           invalid={false}
+                           input$autocomplete="username">
+                    <Icon class="material-icons">perm_device_information</Icon>
                 </Textfield>
-                <HelperText validationMsg>{$_(passwordValidationMsg)}</HelperText>
             </div>
             <div class="container">
-                <Textfield withLeadingIcon type="password" label={$_("general.passwordConfirmationRequired")} bind:value={passwordConfirm}
+                <Textfield withLeadingIcon type="password" label={$_("general.moodlePasswordRequired")}
+                           bind:value={moodlePassword}
                            on:click={resetCustomErrorMessages}
-                           invalid={passwordConfirmInvalid && passwordConfirm.length > 0}>
+                           invalid={false}>
                     <Icon class="material-icons">lock</Icon>
                 </Textfield>
-                <HelperText validationMsg>{$_(passwordConfirmValidationMsg)}</HelperText>
             </div>
             <div class="container">
                 <p class="errorMessage">{$_(generalErrorMsg)}</p>
                 <Button type="submit" variant="raised" disabled={registerDisabled || loading}>
-                    <Label>{$_("page.register.registerButton")}</Label>
+                    <Label>{$_("page.validateMoodle.validateButton")}</Label>
                 </Button>
             </div>
         </form>

@@ -3,10 +3,19 @@
     import Login from "./Login.svelte";
     import Register from "./Register.svelte";
     import Help from "./Help.svelte";
-    import Home from "./Home.svelte";
     import Error from "./Error.svelte";
+    import ValidateMoodle from "./ValidateMoodle.svelte";
+    import ValidateInfo from "./ValidateInfo.svelte";
+    import Index from "./Index.svelte";
+    import Dashboard from "./Dashboard.svelte";
 </script>
 
+<Route path="/validate/moodle">
+    <ValidateMoodle/>
+</Route>
+<Route path="/validate">
+    <ValidateInfo/>
+</Route>
 <Route path="/register">
     <Register/>
 </Route>
@@ -16,8 +25,11 @@
 <Route path="/help">
     <Help/>
 </Route>
+<Route path="/dashboard">
+    <Dashboard/>
+</Route>
 <Route path="/">
-    <Home/>
+    <Index/>
 </Route>
 <Route path="">
     <Error/>

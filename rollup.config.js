@@ -3,12 +3,14 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import {terser} from 'rollup-plugin-terser';
+import json from '@rollup/plugin-json';
 
 import autoPreprocess from 'svelte-preprocess';
 import postcss from 'rollup-plugin-postcss';
 import {injectManifest} from 'rollup-plugin-workbox';
 
 import workboxConfig from "./workbox-config";
+const warnFilter = /has been rewritten/;
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -21,6 +23,7 @@ export default {
         file: 'public/build/bundle.js'
     },
     plugins: [
+        json(),
         svelte({
             // enable run-time checks when not in production
             dev: !production,
@@ -75,6 +78,13 @@ export default {
     ],
     watch: {
         clearScreen: false
+    },
+    onwarn: warning => {
+        const str = warning.toString();
+
+        if (warnFilter.test(str)) return;
+
+        console.warn(warning);
     }
 };
 

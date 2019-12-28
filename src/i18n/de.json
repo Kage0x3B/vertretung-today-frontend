@@ -1,0 +1,95 @@
+{
+  "appName": "VertretungToday",
+  "titleFormat": "{pageTitle} - {appName}",
+  "schoolName": "FWG Trier",
+  "schoolNameLong": "Friedrich-Wilhelm-Gymnasium Trier",
+  "general": {
+    "usernameRequired": "Benutzername*",
+    "passwordRequired": "Passwort*",
+    "passwordConfirmationRequired": "Passwort bestätigen*",
+    "moodleUsernameRequired": "Moodle Benutzername*",
+    "moodlePasswordRequired": "Moodle Passwort*",
+    "back": "Zurück",
+    "notLoggedIn": "Nicht eingeloggt"
+  },
+  "error": {
+    "invalidUsernameLength": "Der Benutzername muss aus mindestens 3 Zeichen bestehen.",
+    "invalidPasswordLength": "Das Password muss aus mindestens 6 Zeichen bestehen.",
+    "identicalPasswordsRequired": "Beide Passwörter müssen gleich sein.",
+    "usernameTaken": "Benutzername ist bereits vergeben.",
+    "accountNotFound": "Benutzer existiert nicht.",
+    "invalidPassword": "Passwort ist falsch.",
+    "accountAlreadyValidated": "Der Account ist bereits bestätigt. Versuche dich einzuloggen.",
+    "invalidMoodleAuthentication": "Konnte deinen Moodle Account nicht überprüfen, stimmen Benutzername und Passwort?",
+    "validatedButLoginProblem": "Account ist bestätigt, es gab jedoch Probleme beim direkten Einloggen. Versuche es bitte selber nochmal.",
+    "general": "Ein Problem ist aufgetreten.",
+    "connectionProblem": "Es konnte keine Verbindung zum Server aufgebaut werden."
+  },
+  "navDrawer": {
+    "items": {
+      "dashboard": "Startseite",
+      "login": "Einloggen",
+      "register": "Registrieren",
+      "help": "Hilfe"
+    }
+  },
+  "validateEmailTemplate":  {
+    "subject": "VertretungToday Account bestätigen",
+    "body": "Hallo, bitte bestätige den VertretungToday Account \"{username}\". Weitere Informationen über mich:"
+  },
+  "page": {
+    "dashboard": {
+      "title": "Startseite"
+    },
+    "error": {
+      "title": "Nicht gefunden",
+      "description": "Die Seite konnte nicht gefunden werden"
+    },
+    "help": {
+      "title": "Hilfe"
+    },
+    "login": {
+      "title": "Einloggen",
+      "dontHaveAnAccount": "Hast du noch keinen Account?",
+      "loginButton": "Einloggen",
+      "registerButton": "Registrieren"
+    },
+    "register": {
+      "title": "Registrieren",
+      "registerButton": "Registrieren"
+    },
+    "validateInfo": {
+      "title": "Account bestätigen",
+      "generalInfo": {
+        "1": "Nachdem du jetzt deinen VertretungToday Account erstellt hast musst du diesen noch bestätigen bevor du VertretungToday benutzen kannst.",
+        "2": "Dies ist ein benötigter Schritt, um sicherzustellen, dass du ein Schüler des {schoolName} bist.",
+        "3": "Dir stehen dafür zwei Möglichkeiten zur Verfügung:"
+      },
+      "option": {
+        "1": {
+          "title": "Moodle Account",
+          "button": "Mit Moodle bestätigen",
+          "description": {
+            "1": "Mit deinem Moodle Account kannst du automatisch deinen Account bestätigen lassen.",
+            "2": "Achtung: Du musst dafür dein Moodle Benutzernamen und Passwort eingeben.",
+            "3": "Diese Daten werden einmalig an den VertretungToday Server geschickt um den Account zu bestätigen und danach direkt gelöscht."
+          }
+        },
+        "2": {
+          "title": "Manuell eine E-Mail senden",
+          "button": "E-Mail schicken",
+          "description": {
+            "1": "Du kannst auch an den Administrator (Moritz Hein) eine E-Mail senden um deinen Account bestätigen zu lassen.",
+            "2": "Diese Möglichkeit könnte jedoch etwas dauern.",
+            "3": "Bitte schreibe in die E-Mail deinen VertretungToday Benutzernamen und am besten deinen richtigen Namen, hänge ein Bild von deinem Schülerausweis an oder sonstige Informationen damit bestätigt werden kann, dass du ein Schüler bist."
+          }
+        }
+      }
+    },
+    "validateMoodle": {
+      "title": "Account bestätigen",
+      "titleLong": "Account mit Moodle bestätigen",
+      "validateButton": "Account bestätigen"
+    }
+  }
+}

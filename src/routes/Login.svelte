@@ -1,7 +1,9 @@
 <script>
+    import {_} from "svelte-i18n";
     import BasePage from "../_components/BasePage.svelte";
     import api from "../api/api";
     import {isMobileScreen} from "../util/util";
+    import {loggedIn, tempUsername, tempPassword} from "../stores/general";
 
     import {links, navigate} from "svelte-routing";
     import Textfield from "@smui/textfield";
@@ -9,15 +11,6 @@
     import HelperText from '@smui/textfield/helper-text/index';
     import Button, {Label} from '@smui/button';
     import LinearProgress from '@smui/linear-progress';
-
-    const errorMessages = {
-        invalidUsernameLength: "Der Benutzername muss aus mindestens 3 Zeichen bestehen.",
-        invalidPasswordLength: "Das Password muss aus mindestens 6 Zeichen bestehen.",
-        accountNotFound: "Benutzer existiert nicht.",
-        invalidPassword: "Passwort ist falsch.",
-        general: "Ein Problem ist aufgetreten.",
-        connectionProblem: "Es konnte keine Verbindung zum Server aufgebaut werden."
-    };
 
     let username = "";
     let password = "";
@@ -37,8 +30,8 @@
     let passwordValidationMsg;
     let generalErrorMsg = "";
 
-    $: usernameValidationMsg = usernameCustomValidationMsg || errorMessages.invalidUsernameLength;
-    $: passwordValidationMsg = passwordCustomValidationMsg || errorMessages.invalidPasswordLength;
+    $: usernameValidationMsg = usernameCustomValidationMsg || "error.invalidUsernameLength";
+    $: passwordValidationMsg = passwordCustomValidationMsg || "error.invalidPasswordLength";
 
     function onSubmit() {
         if (loginDisabled) {
@@ -50,23 +43,30 @@
         api.user.login(username, password).then(function (response) {
             loading = false;
 
-            navigate("/", {replace: true});
+            if(api.login(response)) {
+                $loggedIn = true;
+                navigate("/", {replace: true});
+            } else {
+                generalErrorMsg = "error.validatedButLoginProblem";
+            }
         }).catch(function (error) {
             loading = false;
 
             if (error.action === "showMessage") {
                 if (error.target === "usernameField") {
-                    usernameCustomValidationMsg = errorMessages[error.message];
+                    usernameCustomValidationMsg = "error." + error.message;
                 } else if (error.target === "passwordField") {
-                    passwordCustomValidationMsg = errorMessages[error.message];
+                    passwordCustomValidationMsg = "error." + error.message;
                 }
             } else if (error.action === "redirectValidation") {
-                //TODO: Redirect to validation page with correct username filled in
-                generalErrorMsg = "VALIDATION REQUIRED TODO";
+                $tempUsername = username;
+                $tempPassword = password;
+
+                navigate("/validate", {replace: true});
             } else if(error.action === "connectionProblem") {
-                generalErrorMsg = errorMessages.connectionProblem;
+                generalErrorMsg = "error.connectionProblem";
             } else {
-                generalErrorMsg = errorMessages.general;
+                generalErrorMsg = "error.general";
             }
         });
     }
@@ -78,40 +78,40 @@
     }
 </script>
 
-<BasePage pageTitle="Einloggen" useProminentNav>
+<BasePage pageTitle="page.login.title" allowUnauthorized>
     <div class="center page-padding">
         {#if !isMobileScreen()}
-            <h2>Einloggen</h2>
+            <h2>{$_("page.login.title")}</h2>
         {/if}
         <form on:submit|preventDefault={onSubmit} novalidate>
             <div class="container">
-                <Textfield withLeadingIcon label="Benutzername*" bind:value={username}
+                <Textfield withLeadingIcon label={$_("general.usernameRequired")} bind:value={username}
                            on:click={resetCustomErrorMessages}
                            invalid={usernameInvalid && username.length > 0 || usernameCustomValidationMsg}
                            input$autocomplete="username">
                     <Icon class="material-icons">person</Icon>
                 </Textfield>
-                <HelperText validationMsg>{usernameValidationMsg}</HelperText>
+                <HelperText validationMsg>{$_(usernameValidationMsg)}</HelperText>
             </div>
             <div class="container">
-                <Textfield withLeadingIcon type="password" label="Passwort*" bind:value={password}
+                <Textfield withLeadingIcon type="password" label={$_("general.passwordRequired")} bind:value={password}
                            on:click={resetCustomErrorMessages}
                            invalid={passwordInvalid && password.length > 0 || passwordCustomValidationMsg}>
                     <Icon class="material-icons">lock</Icon>
                 </Textfield>
-                <HelperText validationMsg>{passwordValidationMsg}</HelperText>
+                <HelperText validationMsg>{$_(passwordValidationMsg)}</HelperText>
             </div>
             <div class="container">
-                <p class="errorMessage">{generalErrorMsg}</p>
+                <p class="errorMessage">{$_(generalErrorMsg)}</p>
                 <Button type="submit" variant="raised" disabled={loginDisabled || loading}>
-                    <Label>Einloggen</Label>
+                    <Label>{$_("page.login.loginButton")}</Label>
                 </Button>
             </div>
             <div class="container register-info" use:links>
                 <hr>
-                <p class="mdc-typography--caption">Hast du noch keinen Account?</p>
+                <p class="mdc-typography--caption">{$_("page.login.dontHaveAnAccount")}</p>
                 <Button variant="unelevated" dense href="/register">
-                    <Label>Registrieren</Label>
+                    <Label>{$_("page.login.registerButton")}</Label>
                 </Button>
             </div>
         </form>
