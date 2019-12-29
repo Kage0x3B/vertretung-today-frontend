@@ -10,7 +10,36 @@
     "moodleUsernameRequired": "Moodle Benutzername*",
     "moodlePasswordRequired": "Moodle Passwort*",
     "back": "Zurück",
-    "notLoggedIn": "Nicht eingeloggt"
+    "notLoggedIn": "Nicht eingeloggt",
+    "install.successful": "VertretungToday wurde installiert!"
+  },
+  "dashboardCard": {
+    "install": {
+      "title": "VertretungToday Installieren",
+      "content": {
+        "1": "Die VertretungToday App kann auf deinen Startbildschirm installiert werden,",
+        "2": "fast wie eine normale App."
+      },
+      "actionInstall": "Installieren",
+      "actionLater": "Später"
+    },
+    "summary": {
+      "title": {
+        "today": "Vertretungsplan Heute",
+        "next": "Vertretungsplan {day, date, medium}"
+      },
+      "motd": "Nachricht des Tages",
+      "noMotd": "Keine Nachricht des Tages",
+      "amount": "{entryAmount, plural, =0 {Keine Vertretungseinträge} one {# Vertretungseintrag} other {# Vertretungseinträge}}"
+    }
+  },
+  "dialog": {
+    "install": {
+      "title": "VertretungToday installieren",
+      "content": "Willst du VertretungToday installieren?",
+      "actionInstall": "Installieren",
+      "actionLater": "Später"
+    }
   },
   "error": {
     "invalidUsernameLength": "Der Benutzername muss aus mindestens 3 Zeichen bestehen.",
@@ -25,15 +54,23 @@
     "general": "Ein Problem ist aufgetreten.",
     "connectionProblem": "Es konnte keine Verbindung zum Server aufgebaut werden."
   },
-  "navDrawer": {
+  "navBar": {
     "items": {
-      "dashboard": "Startseite",
-      "login": "Einloggen",
-      "register": "Registrieren",
-      "help": "Hilfe"
+      "logout": "Ausloggen"
     }
   },
-  "validateEmailTemplate":  {
+  "navDrawer": {
+    "items": {
+      "login": "Einloggen",
+      "register": "Registrieren",
+      "help": "Hilfe",
+      "install": "Installieren",
+      "dashboard": "Startseite",
+      "substitutionToday": "Vertretung Heute",
+      "substitutionNext": "Vertretung Danach"
+    }
+  },
+  "validateEmailTemplate": {
     "subject": "VertretungToday Account bestätigen",
     "body": "Hallo, bitte bestätige den VertretungToday Account \"{username}\". Weitere Informationen über mich:"
   },
@@ -44,6 +81,15 @@
     "error": {
       "title": "Nicht gefunden",
       "description": "Die Seite konnte nicht gefunden werden"
+    },
+    "substitutionPlan": {
+      "title": {
+        "today": "Vertretungsplan Heute",
+        "next": "Vertretungsplan {day, date, medium}"
+      },
+      "motd": "Nachricht des Tages",
+      "noMotd": "Keine Nachricht des Tages",
+      "amount": "{entryAmount, plural, =0 {Keine Vertretungseinträge} one {# Vertretungseintrag} other {# Vertretungseinträge}}"
     },
     "help": {
       "title": "Hilfe"

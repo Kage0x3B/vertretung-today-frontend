@@ -1,5 +1,5 @@
 <script>
-    import {loggedIn} from "../stores/general";
+    import {loggedIn} from "../stores/tempStore";
     import {onMount} from "svelte";
     import {navigate} from "svelte-routing";
 

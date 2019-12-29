@@ -1,52 +1,68 @@
 <script>
     import {_} from "svelte-i18n";
     import TopAppBar, {Row, Section, Title} from '@smui/top-app-bar';
+    import Menu, {SelectionGroup, SelectionGroupIcon} from '@smui/menu';
+    import List, {Item, Separator, Text, PrimaryText, SecondaryText, Graphic} from '@smui/list';
     import IconButton from '@smui/icon-button';
     import {navigate} from "svelte-routing";
 
-    import {isMobileScreen} from "../util/util";
-    import {title, backButton, backUrl} from "../stores/general";
+    import api from "../api/api";
+    import util from "../util/util";
+    import {loggedIn, title, backButton, backUrl} from "../stores/tempStore";
 
     export let setDrawerOpen;
 
+    let menu;
     let navBarTitle;
     let prominent;
 
-    let backButtonRequested;
-    let backButtonUrl;
     let displayBackButton;
 
     $: navBarTitle = $title;
 
-    $: {
-        backButtonRequested = $backButton;
-        backButtonUrl = $backUrl;
-        displayBackButton = backButtonRequested || backButtonUrl;
-    }
+    $: displayBackButton = $backButton || $backUrl;
 
     function back() {
-        if (backButtonUrl) {
-            navigate(backButtonUrl, {replace: true});
+        if ($backUrl) {
+            navigate($backUrl, {replace: true});
         } else {
             window.history.back();
         }
     }
+
+    function logout() {
+        api.setJwtToken("");
+        $loggedIn = false;
+        navigate("/", {replace: true});
+    }
 </script>
 
-<TopAppBar variant="fixed" dense={!isMobileScreen()} color='primary'>
+<TopAppBar variant="fixed" dense={!util.isMobileScreen()} color='primary'>
     <Row>
         <Section>
-            {#if isMobileScreen()}
+            {#if util.isMobileScreen()}
                 {#if displayBackButton}
                     <IconButton class="material-icons" on:click={back}>arrow_back</IconButton>
                 {:else}
                     <IconButton class="material-icons" on:click={() => setDrawerOpen(true)}>menu</IconButton>
                 {/if}
             {/if}
-            <Title>{$_(navBarTitle)}</Title>
+            <Title>{navBarTitle}</Title>
         </Section>
         <Section align="end" toolbar>
-            <!--<IconButton class="material-icons">more_vert</IconButton>-->
+            <div>
+                {#if $loggedIn}
+                    <IconButton class="material-icons" on:click={() => menu.setOpen(true)}>more_vert</IconButton>
+                    <Menu bind:this={menu}>
+                        <List>
+                            <!--<Separator />-->
+                            <Item on:SMUI:action={logout}>
+                                <Text>{$_("navBar.items.logout")}</Text>
+                            </Item>
+                        </List>
+                    </Menu>
+                {/if}
+            </div>
         </Section>
     </Row>
 </TopAppBar>

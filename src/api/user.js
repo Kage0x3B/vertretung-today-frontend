@@ -1,7 +1,7 @@
 export default function (axios) {
     function handleAuthError(reject) {
         return function (error) {
-            if(!error.response) {
+            if (!error.response) {
                 reject({
                     action: "connectionProblem"
                 });
@@ -38,15 +38,19 @@ export default function (axios) {
         });
     }
 
+    const checkAuth = () => axios.get("/checkAuth");
+    const register = (username, password) => postAuthRequest("/auth/register", {username, password});
+    const login = (username, password) => postAuthRequest("/auth/login", {username, password});
+    const validateAccountMoodle = (accountUsername, moodleUsername, moodlePassword) => postAuthRequest("/auth/validate/moodle", {
+        accountUsername,
+        moodleUsername,
+        moodlePassword
+    });
+
     return {
-        register(username, password) {
-            return postAuthRequest("/auth/register", {username, password});
-        },
-        login(username, password) {
-            return postAuthRequest("/auth/login", {username, password});
-        },
-        validateAccountMoodle(accountUsername, moodleUsername, moodlePassword) {
-            return postAuthRequest("/auth/validate/moodle", {accountUsername, moodleUsername, moodlePassword});
-        }
+        checkAuth,
+        register,
+        login,
+        validateAccountMoodle
     };
 };

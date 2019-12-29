@@ -1,36 +1,51 @@
 <script>
     import {_} from "svelte-i18n";
     import BasePage from "../_components/BasePage.svelte";
-    import {loggedIn} from "../stores/general";
+    import api from "../api/api";
+    import util from "../util/util";
+    import {loggedIn, installReady} from "../stores/tempStore";
+    import {hideDashboardInstall} from "../stores/permanentStore";
     import {navigate} from "svelte-routing";
     import Card, {Content, PrimaryAction, Media, MediaContent, Actions, ActionButtons, ActionIcons} from '@smui/card';
     import Button, {Label} from '@smui/button';
-    import IconButton, {Icon} from '@smui/icon-button';
+    import {Icon} from '@smui/common';
+    import IconButton from '@smui/icon-button';
+    import LinearProgress from '@smui/linear-progress';
+
+    import InstallReadyCard from "../_components/dashboard/InstallReadyCard.svelte";
+    import SubstitutionInfoCard from "../_components/dashboard/SubstitutionInfoCard.svelte";
+
+    let summaryPromise = api.substitutionPlan.getSummary();
 </script>
 
-<BasePage pageTitle="page.dashboard.title" noPaper>
-    <Card style="width: 360px;">
-    <PrimaryAction>
-        <Content class="mdc-typography--body2">
-            This item is so glorious that you would have to be some kind of fool to not immediately buy it.
-        </Content>
-    </PrimaryAction>
-    <Actions>
-        <ActionButtons>
-            <Button>
-                <Label>Add to Card</Label>
-            </Button>
-            <Button>
-                <Label>Buy Now</Label>
-            </Button>
-        </ActionButtons>
-        <ActionIcons>
-            <IconButton toggle aria-label="Add to favorites" title="Add to favorites">
-                <Icon class="material-icons" on>favorite</Icon>
-                <Icon class="material-icons">favorite_border</Icon>
-            </IconButton>
-            <IconButton class="material-icons" title="Share">share</IconButton>
-        </ActionIcons>
-    </Actions>
-    </Card>
+<BasePage pageTitle={$_("page.dashboard.title")} noPaper>
+    <div class="card-wrapper">
+        <InstallReadyCard/>
+        {#await summaryPromise}
+            <div style="min-width: 420px">
+                <LinearProgress indeterminate/>
+            </div>
+        {:then summaryData}
+            <SubstitutionInfoCard date="today" summaryData={summaryData.data.payload}/>
+            <SubstitutionInfoCard date="next" summaryData={summaryData.data.payload}/>
+        {:catch error}
+            {error}
+        {/await}
+    </div>
 </BasePage>
+
+<style>
+    .card-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    :global(.dashboard-title-icon) {
+        vertical-align: middle;
+    }
+
+    :global(.dashboard-card) {
+        max-width: 420px;
+        margin-bottom: 16px;
+    }
+</style>

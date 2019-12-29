@@ -3,19 +3,33 @@
     import Drawer, {AppContent, Content, Header, Title, Subtitle, Scrim} from '@smui/drawer';
     import Button, {Label} from '@smui/button';
     import List, {Item, Text, Graphic, Separator, Subheader} from '@smui/list';
-    import {isMobileScreen} from "../util/util";
+    import util from "../util/util";
     import {links} from "svelte-routing";
-    import {loggedIn} from "../stores/general";
+    import {loggedIn, installReady} from "../stores/tempStore";
     import {getContext, onMount} from "svelte";
     import NavLinkItem from "./NavLinkItem.svelte";
 
     export let open = false;
 
     let _open;
-    $: _open = !isMobileScreen() || open;
+    $: _open = !util.isMobileScreen() || open;
 
     function close() {
         open = false;
+    }
+
+    function showInstallPrompt() {
+        open = false;
+        util.showInstallPrompt().then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                util.getKitchen().push({
+                    label: $_("install.successful"),
+                    dismissButton: true,
+                });
+            } else {
+                console.log('PWA setup rejected');
+            }
+        });
     }
 
     let subtitle;
@@ -27,8 +41,8 @@
     }
 </script>
 
-<Drawer variant={isMobileScreen() ? "modal" : null} bind:open={_open}>
-    {#if isMobileScreen()}
+<Drawer variant={util.isMobileScreen() ? "modal" : null} bind:open={_open}>
+    {#if util.isMobileScreen()}
         <Header>
             <Title>{$_("appName")}</Title>
             <Subtitle>{$_(subtitle)}</Subtitle>
@@ -43,6 +57,14 @@
                         <Graphic class="material-icons" aria-hidden="true">home</Graphic>
                         <Text>{$_("navDrawer.items.dashboard")}</Text>
                     </NavLinkItem>
+                    <NavLinkItem to="/substitutionPlan/today" on:click={close}>
+                        <Graphic class="material-icons" aria-hidden="true">event_note</Graphic>
+                        <Text>{$_("navDrawer.items.substitutionToday")}</Text>
+                    </NavLinkItem>
+                    <NavLinkItem to="/substitutionPlan/next" on:click={close}>
+                        <Graphic class="material-icons" aria-hidden="true">event_note</Graphic>
+                        <Text>{$_("navDrawer.items.substitutionNext")}</Text>
+                    </NavLinkItem>
                 {:else}
                     <NavLinkItem to="/login" on:click={close}>
                         <Graphic class="material-icons" aria-hidden="true">lock_open</Graphic>
@@ -54,6 +76,12 @@
                     </NavLinkItem>
                 {/if}
                 <Separator nav/>
+                {#if $installReady}
+                    <Item on:click={showInstallPrompt}>
+                        <Graphic class="material-icons" aria-hidden="true">get_app</Graphic>
+                        <Text>{$_("navDrawer.items.install")}</Text>
+                    </Item>
+                {/if}
                 <NavLinkItem to="/help" on:click={close}>
                     <Graphic class="material-icons" aria-hidden="true">help</Graphic>
                     <Text>{$_("navDrawer.items.help")}</Text>

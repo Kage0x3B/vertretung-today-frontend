@@ -2,8 +2,8 @@
     import {_} from "svelte-i18n";
     import BasePage from "../_components/BasePage.svelte";
     import api from "../api/api";
-    import {isMobileScreen} from "../util/util";
-    import {loggedIn, tempUsername, tempPassword} from "../stores/general";
+    import util from "../util/util";
+    import {loggedIn, tempUsername, tempPassword} from "../stores/tempStore";
 
     import {navigate} from "svelte-routing";
     import Textfield from "@smui/textfield";
@@ -79,9 +79,9 @@
     }
 </script>
 
-<BasePage pageTitle="page.validateMoodle.title" back="/validate" allowUnauthorized>
+<BasePage pageTitle={$_("page.validateMoodle.title")} back="/validate" allowUnauthorized>
     <div class="center page-padding">
-        {#if !isMobileScreen()}
+        {#if !util.isMobileScreen()}
             <h2>{$_("page.validateMoodle.titleLong")}</h2>
         {/if}
         <form on:submit|preventDefault={onSubmit} novalidate>

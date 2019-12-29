@@ -1,7 +1,7 @@
 <script>
     import Paper from "@smui/paper";
-    import {isMobileScreen} from "../util/util";
-    import {loggedIn, title, backButton, backUrl} from "../stores/general";
+    import util from "../util/util";
+    import {loggedIn, title, backButton, backUrl} from "../stores/tempStore";
     import {fade} from 'svelte/transition';
     import {onMount} from "svelte";
     import {navigate} from "svelte-routing";
@@ -26,15 +26,18 @@
 </script>
 
 <main class="page-wrapper">
-    <div class="page-content" transition:fade="{{duration: 200}}">
-        {#if noPaper || isMobileScreen()}
+    <!--<div class="page-content" transition:fade="{{duration: 200}}">-->
+        <!-- noPaper || isMobileScreen() is not possible, maybe weird bug but this is an easy workaround -->
+        {#if util.isMobileScreen()}
+            <slot/>
+        {:else if noPaper}
             <slot/>
         {:else}
-            <Paper>
+            <Paper class="base-paper">
                 <slot/>
             </Paper>
         {/if}
-    </div>
+    <!--</div>-->
 </main>
 
 <style>
@@ -43,11 +46,8 @@
         box-sizing: border-box;
         background-color: #fff;
         padding: 16px 8px 48px;
-    }
-
-    .page-content {
-        overflow: scroll;
-        height: 100%;
+        overflow: auto;
+        z-index: 0;
     }
 
     @media (min-width: 768px) {
@@ -60,11 +60,7 @@
             height: 95vh;
         }
 
-        .page-content {
-            overflow: auto;
-            overflow-x: hidden;
-            overflow-y: auto;
-
+        :global(.base-paper) {
             max-width: 50vw;
         }
     }

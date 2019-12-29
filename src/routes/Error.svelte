@@ -5,7 +5,7 @@
     import Button, {Label, Icon} from '@smui/button';
 </script>
 
-<BasePage pageTitle="page.error.title" allowUnauthorized>
+<BasePage pageTitle={$_("page.error.title")} allowUnauthorized>
     <div class="center page-padding">
         <h1>{$_("page.error.title")}</h1>
 

@@ -3,7 +3,15 @@ function store(key, value) {
 }
 
 function get(key) {
-    return JSON.parse(localStorage.getItem(key));
+    if(has(key)) {
+        return JSON.parse(localStorage.getItem(key));
+    } else {
+        return null;
+    }
+}
+
+function has(key) {
+    return localStorage.getItem(key) !== null;
 }
 
 function storeAuth(authData) {
@@ -15,5 +23,5 @@ function getAuth() {
 }
 
 export default {
-    store, get, storeAuth, getAuth
+    store, get, has, storeAuth, getAuth
 }

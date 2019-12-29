@@ -8,8 +8,18 @@
     import ValidateInfo from "./ValidateInfo.svelte";
     import Index from "./Index.svelte";
     import Dashboard from "./Dashboard.svelte";
+    import SubstitutionPlan from "./SubstitutionPlan.svelte";
 </script>
 
+<Route path="/substitutionPlan/today">
+    <SubstitutionPlan date="today"/>
+</Route>
+<Route path="/substitutionPlan/next">
+    <SubstitutionPlan date="next"/>
+</Route>
+<Route path="/dashboard">
+    <Dashboard/>
+</Route>
 <Route path="/validate/moodle">
     <ValidateMoodle/>
 </Route>
@@ -24,9 +34,6 @@
 </Route>
 <Route path="/help">
     <Help/>
-</Route>
-<Route path="/dashboard">
-    <Dashboard/>
 </Route>
 <Route path="/">
     <Index/>

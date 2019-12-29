@@ -1,7 +1,10 @@
 import axios from "axios";
 import storage from "../storage";
+import permanentStore from "../stores/permanentStore";
 
 import user from "./user";
+import substitutionPlan from "./substitutionPlan";
+import userSettings from "./userSettings";
 
 const DEBUG = true;
 
@@ -32,7 +35,11 @@ function setJwtToken(token) {
 
     jwtToken = token;
 
-    axiosInstance.defaults.headers.common['Authorization'] = "Bearer " + jwtToken;
+    if(jwtToken) {
+        axiosInstance.defaults.headers.common['Authorization'] = "Bearer " + jwtToken;
+    } else {
+        axiosInstance.defaults.headers.common['Authorization'] = "";
+    }
 
     storage.storeAuth(getAuth());
 }
@@ -65,6 +72,8 @@ function login(loginResponse) {
 
 export default {
     user: user(axiosInstance),
+    substitutionPlan: substitutionPlan(axiosInstance),
+    userSettings: userSettings(axiosInstance),
     setJwtToken,
     getAuth,
     hasValidAuth,

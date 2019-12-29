@@ -1,8 +1,8 @@
 <script>
     import {_} from "svelte-i18n";
     import BasePage from "../_components/BasePage.svelte";
-    import {tempUsername} from "../stores/general";
-    import {isMobileScreen} from "../util/util";
+    import {tempUsername} from "../stores/tempStore";
+    import util from "../util/util";
     import {links} from "svelte-routing";
     import Button, {Label} from '@smui/button';
 
@@ -14,9 +14,9 @@
     const mailtoLink = "mailto:" + mailAddress + "?subject=" + subject + "&body=" + body;
 </script>
 
-<BasePage pageTitle="page.validateInfo.title" allowUnauthorized>
+<BasePage pageTitle={$_("page.validateInfo.title")} allowUnauthorized>
     <div class="page-padding">
-        {#if !isMobileScreen()}
+        {#if !util.isMobileScreen()}
             <div class="center">
                 <h1>{$_("page.validateInfo.title")}</h1>
             </div>
@@ -25,11 +25,7 @@
 
         <p class="mdc-typography--body1">
             {$_("page.validateInfo.generalInfo.1")}
-            {$_("page.validateInfo.generalInfo.2", {
-            values: {
-            schoolName: $_("schoolName")
-            }
-            })}
+            {$_("page.validateInfo.generalInfo.2", {values: {schoolName: $_("schoolName")}})}
         </p>
         <p class="mdc-typography--body1">
             {$_("page.validateInfo.generalInfo.3")}

@@ -5,24 +5,31 @@
     import api from "./api/api";
     import storage from "./storage";
     import Routes from "./routes/Routes.svelte";
-    import {isMobileScreen} from "./util/util";
-    import {loggedIn, title} from "./stores/general";
+    import util from "./util/util";
+    import {loggedIn, installReady, title} from "./stores/tempStore";
+    import permanentStore from "./stores/permanentStore";
     import {AppContent, Scrim} from "@smui/drawer";
     import NavDrawer from "./_components/NavDrawer.svelte";
     import NavBar from "./_components/NavBar.svelte";
     import {FixedAdjust, DenseFixedAdjust, ProminentFixedAdjust} from '@smui/top-app-bar';
+    import Kitchen from '@smui/snackbar/kitchen/index';
+    import Dialog, {Title, Content, Actions} from '@smui/dialog';
+    import Button, {Label} from '@smui/button';
 
     import initI18N from "./i18n/i18n";
 
+    let kitchen;
+    let installDialog;
+    let drawerOpen = false;
+
     initI18N();
 
+    permanentStore._setApi(api);
     api.loadAuth();
 
     if (api.hasValidAuth()) {
         $loggedIn = true;
     }
-
-    let drawerOpen = false;
 
     function setDrawerOpen(open) {
         drawerOpen = open;
@@ -32,13 +39,23 @@
         // Svelte braucht die Klammern iwie, sonst ist document noch nicht initialisiert.
         document.title = $_("titleFormat", {
             values: {
-                pageTitle: $_($title),
+                pageTitle: $title,
                 appName: $_("appName")
             }
         });
     }
 
     onMount(() => {
+        util.setKitchen(kitchen);
+        util.setInstallDialog(installDialog);
+
+        window.addEventListener('beforeinstallprompt', function(event) {
+            event.preventDefault();
+
+            util.stashInstallPrompt(event);
+            $installReady = true;
+        });
+
         if ($loggedIn) {
             navigate("/dashboard", {replace: true});
         } else {
@@ -48,8 +65,8 @@
 </script>
 
 <Router>
-    <div class="app-container">
-        {#if isMobileScreen()}
+    <div id="app-container" class="app-container">
+        {#if util.isMobileScreen()}
             <div class="drawer-container">
                 <NavDrawer bind:open={drawerOpen}/>
                 <Scrim on:click={() => setDrawerOpen(false)}/>
@@ -57,7 +74,7 @@
                     <header>
                         <NavBar {setDrawerOpen}/>
                     </header>
-                    <div use:FixedAdjust>
+                    <div class="fixed-navbar-adjust">
                         <Routes/>
                     </div>
                 </AppContent>
@@ -66,7 +83,7 @@
             <header>
                 <NavBar {setDrawerOpen}/>
             </header>
-            <div use:DenseFixedAdjust>
+            <div class="fixed-navbar-adjust-dense">
                 <div class="drawer-container">
                     <NavDrawer bind:open={drawerOpen}/>
                     <Scrim on:click={() => setDrawerOpen(false)}/>
@@ -78,12 +95,30 @@
         {/if}
     </div>
 </Router>
+<Kitchen bind:this={kitchen} dismiss$class="material-icons" />
+<Dialog
+        bind:this={installDialog}
+        aria-labelledby="dialog-title"
+        aria-describedby="dialog-content"
+>
+    <Title id="dialog-title">{$_("dialog.install.title")}</Title>
+    <Content id="dialog-content">
+        {$_("dialog.install.content")}
+    </Content>
+    <Actions>
+        <Button>
+            <Label>{$_("dialog.install.actionLater")}</Label>
+        </Button>
+        <Button on:click={util._showInstallPrompt}>
+            <Label>{$_("dialog.install.actionInstall")}</Label>
+        </Button>
+    </Actions>
+</Dialog>
 
 <style type="text/scss">
     .app-container {
         width: 100%;
         height: 100vh;
-        overflow: hidden;
     }
 
     .drawer-container {
@@ -94,9 +129,16 @@
         z-index: 0;
     }
 
+    .fixed-navbar-adjust {
+        margin-top: 56px;
+    }
+
+    .fixed-navbar-adjust-dense {
+        padding-top: 48px;
+    }
+
     * :global(.app-content) {
         flex: auto;
-        position: relative;
         flex-grow: 1;
     }
 
