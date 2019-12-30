@@ -96,13 +96,14 @@
             <div class="container">
                 <Textfield withLeadingIcon type="password" label={$_("general.passwordRequired")} bind:value={password}
                            on:click={resetCustomErrorMessages}
-                           invalid={passwordInvalid && password.length > 0 || passwordCustomValidationMsg}>
+                           invalid={passwordInvalid && password.length > 0 || passwordCustomValidationMsg}
+                           input$autocomplete="current-password">
                     <Icon class="material-icons">lock</Icon>
                 </Textfield>
                 <HelperText validationMsg>{$_(passwordValidationMsg)}</HelperText>
             </div>
             <div class="container">
-                <p class="errorMessage">{$_(generalErrorMsg)}</p>
+                <p class="errorMessage">{generalErrorMsg && $_(generalErrorMsg)}</p>
                 <Button type="submit" variant="raised" disabled={loginDisabled || loading}>
                     <Label>{$_("page.login.loginButton")}</Label>
                 </Button>

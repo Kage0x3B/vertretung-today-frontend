@@ -20,16 +20,7 @@
 
     function showInstallPrompt() {
         open = false;
-        util.showInstallPrompt().then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                util.getKitchen().push({
-                    label: $_("install.successful"),
-                    dismissButton: true,
-                });
-            } else {
-                console.log('PWA setup rejected');
-            }
-        });
+        util.showInstallDialog();
     }
 
     let subtitle;
@@ -65,6 +56,11 @@
                         <Graphic class="material-icons" aria-hidden="true">event_note</Graphic>
                         <Text>{$_("navDrawer.items.substitutionNext")}</Text>
                     </NavLinkItem>
+                    <Separator nav/>
+                    <NavLinkItem to="/files" on:click={close}>
+                        <Graphic class="material-icons" aria-hidden="true">cloud_download</Graphic>
+                        <Text>{$_("navDrawer.items.files")}</Text>
+                    </NavLinkItem>
                 {:else}
                     <NavLinkItem to="/login" on:click={close}>
                         <Graphic class="material-icons" aria-hidden="true">lock_open</Graphic>
@@ -81,6 +77,12 @@
                         <Graphic class="material-icons" aria-hidden="true">get_app</Graphic>
                         <Text>{$_("navDrawer.items.install")}</Text>
                     </Item>
+                {/if}
+                {#if $loggedIn}
+                    <NavLinkItem to="/settings" on:click={close}>
+                        <Graphic class="material-icons" aria-hidden="true">tune</Graphic>
+                        <Text>{$_("navDrawer.items.settings")}</Text>
+                    </NavLinkItem>
                 {/if}
                 <NavLinkItem to="/help" on:click={close}>
                     <Graphic class="material-icons" aria-hidden="true">help</Graphic>

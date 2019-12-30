@@ -9,13 +9,25 @@
     import Index from "./Index.svelte";
     import Dashboard from "./Dashboard.svelte";
     import SubstitutionPlan from "./SubstitutionPlan.svelte";
+    import Settings from "./Settings.svelte";
+    import FileList from "./FileList.svelte";
 </script>
 
+<!--
+This needs to be split up instead of using path params to prevent using the same base page
+for a different substitution plan page might cause issues with title updating etc.
+-->
 <Route path="/substitutionPlan/today">
     <SubstitutionPlan date="today"/>
 </Route>
 <Route path="/substitutionPlan/next">
     <SubstitutionPlan date="next"/>
+</Route>
+<Route path="/files">
+    <FileList/>
+</Route>
+<Route path="/settings">
+    <Settings/>
 </Route>
 <Route path="/dashboard">
     <Dashboard/>

@@ -31,40 +31,60 @@ function registerStore(key, value) {
 }
 
 function uploadToAccount() {
-    console.log("Uploading user settings");
+    return new Promise((resolve, reject) => {
+        console.log("Uploading user settings");
 
-    let data = {};
+        let data = {};
 
-    for (let key in stores) {
-        if (stores.hasOwnProperty(key)) {
-            data[key] = get(stores[key]);
+        for (let key in stores) {
+            if (stores.hasOwnProperty(key)) {
+                data[key] = get(stores[key]);
+            }
         }
-    }
 
-    const dataString = JSON.stringify(data);
-    api.userSettings.store(dataString);
+        const dataString = JSON.stringify(data);
+        api.userSettings.store(dataString)
+            .then((response) => resolve(response))
+            .catch((error) => reject(error));
+    });
 }
 
 function downloadFromAccount() {
-    console.log("Downloading user settings");
+    return new Promise((resolve, reject) => {
+        console.log("Downloading user settings");
 
-    loading.set(true);
+        loading.set(true);
 
-    api.userSettings.get().then(function (dataString) {
-        const data = JSON.parse(dataString);
-
-        for (let key in data) {
-            if (data.hasOwnProperty(key) && stores[key]) {
-                stores[key].set(data[key]);
+        api.userSettings.get().then(function (dataString) {
+            if(!dataString) {
+                return;
             }
-        }
-    }).catch(function (error) {
-        console.log(error);
-    }).finally(() => loading.set(false));
+
+            try {
+                const data = JSON.parse(dataString);
+
+                for (let key in data) {
+                    if (data.hasOwnProperty(key) && stores[key]) {
+                        stores[key].set(data[key]);
+                    }
+                }
+
+                resolve(dataString);
+            } catch (e) {
+                console.log("Couldn't download user settings");
+                console.log(dataString);
+                console.log(e);
+                reject(e);
+            }
+        }).catch(function (error) {
+            console.log(error);
+            reject(error);
+        }).finally(() => loading.set(false));
+    });
 }
 
 loggedIn.subscribe(value => {
-    if(value) {
+    if (value) {
         downloadFromAccount();
     }
 });
@@ -72,6 +92,9 @@ loggedIn.subscribe(value => {
 let loading = writable(false);
 
 export let grade = registerStore("grade", -1);
+export let gradeAddition = registerStore("gradeAddition", "");
+export let courses = registerStore("courses", []);
+
 export let hideDashboardInstall = registerStore("hideDashboardInstall", false);
 
 export default {

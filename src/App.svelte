@@ -62,6 +62,22 @@
             navigate("/login", {replace: true});
         }
     });
+
+    function installApp() {
+        util._showInstallPrompt().then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                $installReady = false;
+
+                util.getKitchen().push({
+                    label: $_("general.install.successful")
+                });
+            } else {
+                util.getKitchen().push({
+                    label: $_("general.install.rejected")
+                });
+            }
+        });
+    }
 </script>
 
 <Router>
@@ -109,7 +125,7 @@
         <Button>
             <Label>{$_("dialog.install.actionLater")}</Label>
         </Button>
-        <Button on:click={util._showInstallPrompt}>
+        <Button on:click={installApp}>
             <Label>{$_("dialog.install.actionInstall")}</Label>
         </Button>
     </Actions>

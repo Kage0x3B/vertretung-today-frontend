@@ -1,5 +1,6 @@
 <script>
     import {_} from "svelte-i18n";
+    import {Icon} from '@smui/common';
     import TopAppBar, {Row, Section, Title} from '@smui/top-app-bar';
     import Menu, {SelectionGroup, SelectionGroupIcon} from '@smui/menu';
     import List, {Item, Separator, Text, PrimaryText, SecondaryText, Graphic} from '@smui/list';
@@ -55,8 +56,13 @@
                     <IconButton class="material-icons" on:click={() => menu.setOpen(true)}>more_vert</IconButton>
                     <Menu bind:this={menu}>
                         <List>
-                            <!--<Separator />-->
+                            <Item on:SMUI:action={() => navigate("/settings")}>
+                                <Icon class="material-icons menu-item-icon">tune</Icon>
+                                <Text>{$_("navBar.items.settings")}</Text>
+                            </Item>
+                            <Separator />
                             <Item on:SMUI:action={logout}>
+                                <Icon class="material-icons menu-item-icon">exit_to_app</Icon>
                                 <Text>{$_("navBar.items.logout")}</Text>
                             </Item>
                         </List>
@@ -66,3 +72,9 @@
         </Section>
     </Row>
 </TopAppBar>
+
+<style>
+    :global(.menu-item-icon) {
+        margin-right: 4px;
+    }
+</style>

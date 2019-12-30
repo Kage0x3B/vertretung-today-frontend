@@ -1,6 +1,6 @@
 import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import {terser} from 'rollup-plugin-terser';
 import json from '@rollup/plugin-json';
@@ -10,6 +10,7 @@ import postcss from 'rollup-plugin-postcss';
 import {injectManifest} from 'rollup-plugin-workbox';
 
 import workboxConfig from "./workbox-config";
+
 const warnFilter = /has been rewritten/;
 
 const production = !process.env.ROLLUP_WATCH;

@@ -11,7 +11,11 @@
     "moodlePasswordRequired": "Moodle Passwort*",
     "back": "Zurück",
     "notLoggedIn": "Nicht eingeloggt",
-    "install.successful": "VertretungToday wurde installiert!"
+    "close": "Schließen",
+    "install": {
+      "successful": "VertretungToday wurde installiert!",
+      "rejected": "Installation wurde abgelehnt."
+    }
   },
   "dashboardCard": {
     "install": {
@@ -56,6 +60,7 @@
   },
   "navBar": {
     "items": {
+      "settings": "Einstellungen",
       "logout": "Ausloggen"
     }
   },
@@ -67,7 +72,9 @@
       "install": "Installieren",
       "dashboard": "Startseite",
       "substitutionToday": "Vertretung Heute",
-      "substitutionNext": "Vertretung Danach"
+      "substitutionNext": "Vertretung Danach",
+      "files": "Downloads",
+      "settings": "Einstellungen"
     }
   },
   "validateEmailTemplate": {
@@ -85,7 +92,35 @@
     "substitutionPlan": {
       "title": {
         "today": "Vertretungsplan Heute",
-        "next": "Vertretungsplan {day, date, medium}"
+        "next": "Vertretungsplan Danach",
+        "nextDate": "Vertretungsplan {day, date, medium}"
+      },
+      "entry": {
+        "title": {
+          "substitution": "Vertretung {teacher}",
+          "cancelled": "Fällt aus",
+          "switch": "Wechsel",
+          "moved": "Verlegt",
+          "room_change": "Raumwechsel {room}",
+          "independent_working": "Stillarbeit Raum {room}",
+          "other": "Änderung"
+        },
+        "subtitle": {
+          "time": "{time}. Stunde",
+          "course": "{course}"
+        },
+        "empty": "Keine Vertretungseinträge"
+      },
+      "dialog": {
+        "time": "{time}. Stunde",
+        "grade": "{grade}",
+        "courseId": "{courseId}",
+        "course": "Fach: {course}",
+        "room": "Raum: {room}",
+        "teacher": "Lehrer: {teacher}",
+        "movedFromNotice": "Verlegt von: {from}",
+        "movedToNotice": "Verlegt auf: {to}",
+        "notice": "Anmerkung: {notice}"
       },
       "motd": "Nachricht des Tages",
       "noMotd": "Keine Nachricht des Tages",
@@ -93,6 +128,34 @@
     },
     "help": {
       "title": "Hilfe"
+    },
+    "settings": {
+      "title": "Einstellungen",
+      "updateButton": "Speichern",
+      "savedSnackbar": "Die Einstellungen wurden gespeichert.",
+      "savedLocallySnackbar": "Die Einstellungen wurden gespeichert, konnten aber nicht hochgeladen werden.",
+      "general": {
+        "grade": "Stufe",
+        "gradeNoSelection": "Keine Auswahl",
+        "gradeAddition": "Klasse",
+        "gradeAdditionHelper": "Deine Klasse ohne Stufe, z.B. a, b oder c",
+        "courseList": "Kursliste",
+        "courseListHelper": "Eine Liste deiner Kurse, mit Komma abgetrennt. Bsp.: 13MA1,13sp82"
+      }
+    },
+    "fileList": {
+      "title": "Downloads",
+      "downloadStartedSnackbar": "Wird heruntergeladen...",
+      "downloadProblemSnackbar": "Ein Fehler ist aufgetreten.",
+      "entry": {
+        "title": "Änderung",
+        "empty": "Keine Downloads vorhanden"
+      },
+      "dialog": {
+        "url": "Orignale URL: {url}",
+        "fileType": "Dateityp: {fileType}",
+        "downloadAction": "Herunterladen"
+      }
     },
     "login": {
       "title": "Einloggen",
@@ -136,6 +199,15 @@
       "title": "Account bestätigen",
       "titleLong": "Account mit Moodle bestätigen",
       "validateButton": "Account bestätigen"
+    }
+  },
+  "mimeType": {
+    "application": {
+      "octet-stream": "Unbekannt",
+      "pdf": "PDF"
+    },
+    "text": {
+      "html": "Webseite"
     }
   }
 }

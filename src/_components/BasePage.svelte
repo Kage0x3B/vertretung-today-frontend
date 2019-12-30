@@ -23,12 +23,14 @@
         $backButton = backBtn;
         $backUrl = back;
     });
+
+    const mobileScreen = util.isMobileScreen();
 </script>
 
 <main class="page-wrapper">
     <!--<div class="page-content" transition:fade="{{duration: 200}}">-->
         <!-- noPaper || isMobileScreen() is not possible, maybe weird bug but this is an easy workaround -->
-        {#if util.isMobileScreen()}
+        {#if mobileScreen}
             <slot/>
         {:else if noPaper}
             <slot/>
@@ -42,26 +44,27 @@
 
 <style>
     .page-wrapper {
-        height: 100%;
+        overflow: scroll;
         box-sizing: border-box;
+        height: 100%;
         background-color: #fff;
-        padding: 16px 8px 48px;
-        overflow: auto;
+        padding: 8px;
         z-index: 0;
     }
 
     @media (min-width: 768px) {
         .page-wrapper {
+            overflow: auto;
             display: flex;
             justify-content: center;
-            align-items: center;
+            padding: 8px;
             background-color: #eee;
-            padding: 16px 0;
-            height: 95vh;
+            min-height: 95vh;
         }
 
         :global(.base-paper) {
             max-width: 50vw;
+            height: min-content;
         }
     }
 </style>

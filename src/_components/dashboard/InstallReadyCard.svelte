@@ -16,9 +16,12 @@
         $hideDashboardInstall = true;
         permanentStore.uploadToAccount();
     }
+
+    let isVisible;
+    $: isVisible = $installReady && !$hideDashboardInstall;
 </script>
 
-{#if $installReady && !$hideDashboardInstall}
+{#if isVisible}
     <Card class="dashboard-card">
         <Content class="mdc-typography--body2">
             <h2 class="mdc-typography--headline6">

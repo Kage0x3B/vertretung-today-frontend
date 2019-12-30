@@ -9,6 +9,6 @@
     <hr>
 
     <p class="mdc-typography--body1">
-        Test Seite TODO REPLACE
+        Wird noch geschrieben...
     </p>
 </BasePage>

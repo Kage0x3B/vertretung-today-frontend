@@ -5,11 +5,12 @@ import permanentStore from "../stores/permanentStore";
 import user from "./user";
 import substitutionPlan from "./substitutionPlan";
 import userSettings from "./userSettings";
+import fileList from "./fileList";
 
-const DEBUG = true;
+const DEBUG = false;
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:8080"
+    baseURL: "https://app.vertretungtoday.de/api"
 });
 
 axiosInstance.interceptors.response.use(function (response) {
@@ -74,6 +75,7 @@ export default {
     user: user(axiosInstance),
     substitutionPlan: substitutionPlan(axiosInstance),
     userSettings: userSettings(axiosInstance),
+    fileList: fileList(axiosInstance),
     setJwtToken,
     getAuth,
     hasValidAuth,

@@ -12,8 +12,8 @@ export default function (axios) {
             if (error.response.status === 424) {
                 reject({
                     action: "redirectValidation",
-                    target: data.payload.target,
-                    message: data.payload.message
+                    target: "",
+                    message: ""
                 });
             } else if (data && data.payload && data.payload.target) {
                 reject({

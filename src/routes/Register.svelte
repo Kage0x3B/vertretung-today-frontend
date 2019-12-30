@@ -94,21 +94,24 @@
             <div class="container">
                 <Textfield withLeadingIcon type="password" label={$_("general.passwordRequired")} bind:value={password}
                            on:click={resetCustomErrorMessages}
-                           invalid={(passwordInvalid && password.length > 0) || passwordCustomValidationMsg}>
+                           invalid={(passwordInvalid && password.length > 0) || passwordCustomValidationMsg}
+                           input$autocomplete="new-password">
                     <Icon class="material-icons">lock</Icon>
                 </Textfield>
                 <HelperText validationMsg>{$_(passwordValidationMsg)}</HelperText>
             </div>
             <div class="container">
-                <Textfield withLeadingIcon type="password" label={$_("general.passwordConfirmationRequired")} bind:value={passwordConfirm}
+                <Textfield withLeadingIcon type="password" label={$_("general.passwordConfirmationRequired")}
+                           bind:value={passwordConfirm}
                            on:click={resetCustomErrorMessages}
-                           invalid={passwordConfirmInvalid && passwordConfirm.length > 0}>
+                           invalid={passwordConfirmInvalid && passwordConfirm.length > 0}
+                           input$autocomplete="new-password">
                     <Icon class="material-icons">lock</Icon>
                 </Textfield>
                 <HelperText validationMsg>{$_(passwordConfirmValidationMsg)}</HelperText>
             </div>
             <div class="container">
-                <p class="errorMessage">{$_(generalErrorMsg)}</p>
+                <p class="errorMessage">{generalErrorMsg && $_(generalErrorMsg)}</p>
                 <Button type="submit" variant="raised" disabled={registerDisabled || loading}>
                     <Label>{$_("page.register.registerButton")}</Label>
                 </Button>

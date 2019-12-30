@@ -1,5 +1,7 @@
 /public/build/
-
+build/
+.idea/deployment.xml
+.idea/webServers.xml
 
 
 # Created by https://www.gitignore.io/api/node,webstorm

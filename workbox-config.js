@@ -3,6 +3,6 @@ export default {
     globPatterns: [
         '**/*.{html,js,css}'
     ],
-    swDest: 'public/sw.js',
+    swDest: 'build/sw.js',
     swSrc: 'src/sw.js',
 };

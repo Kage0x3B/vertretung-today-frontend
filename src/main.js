@@ -6,10 +6,10 @@ const app = new App({
 });
 
 if ('serviceWorker' in navigator) {
-    /*window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
         navigator.serviceWorker.register('/sw.js');
         console.log("Registered service worker");
-    });*/
+    });
 }
 
 export default app;
