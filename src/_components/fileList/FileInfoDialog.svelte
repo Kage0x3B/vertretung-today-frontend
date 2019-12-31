@@ -6,6 +6,9 @@
     import Dialog, {Title, Content, Actions} from '@smui/dialog';
     import Button, {Label} from '@smui/button';
 
+    // Dialog auf der "Downloads" Seite, wenn man auf eine Datei klickt.
+    // Enthält mehr Informationen und einen Download Button
+
     export let dialog = null;
     export let fileInfo = {
         id: -1,
@@ -26,6 +29,8 @@
     }
 
     function download() {
+        // Lässt die API die Datei herunterladen und den nativen Dialog des Browsers anzeigen,
+        // ob der Benutzer die Datei herunterladen will oder ähnliches.
         api.fileList.download(fileInfo.id, fileInfo.fileName, fileInfo.mimeType).then(() => {
             util.getKitchen().push({
                 label: $_("page.fileList.downloadStartedSnackbar")

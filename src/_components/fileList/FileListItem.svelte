@@ -3,6 +3,8 @@
     import util from "../../util/util";
     import List, {Item, Text, PrimaryText, SecondaryText, Graphic, Meta} from '@smui/list';
 
+    // Ein Eintrag in der Datei Liste der "Downloads" Seite
+
     export let fileInfo = {
         id: -1,
         type: "",

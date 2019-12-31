@@ -6,6 +6,10 @@
     import {links} from "svelte-routing";
     import Button, {Label} from '@smui/button';
 
+    // Seite mit Informationen zum Bestätigen des Benutzeraccounts.
+    // Man wird nach dem Registrieren oder wenn man sich mit einem nicht bestätigten Account einloggt auf diese
+    // Seite weitergeleitet.
+
     const mailAddress = "validate-me@vertretungtoday.de";
     const subject = encodeURI($_("validateEmailTemplate.subject"));
     const body = encodeURI($_("validateEmailTemplate.body", {

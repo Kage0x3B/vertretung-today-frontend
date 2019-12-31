@@ -15,6 +15,8 @@
     import FileListItem from "../_components/fileList/FileListItem.svelte";
     import FileInfoDialog from "../_components/fileList/FileInfoDialog.svelte";
 
+    // Seite mit einer Liste von Dateien die zum Download bereit stehen wie z.B. die Stundenplan PDFs
+
     let fileList;
 
     let dialog;

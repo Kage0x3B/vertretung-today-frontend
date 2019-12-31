@@ -11,6 +11,9 @@
     import util from "../util/util";
     import {loggedIn, title, backButton, backUrl} from "../stores/tempStore";
 
+    // Die Navigationsleiste am oberen Rand der Seite mit Titel
+    // und einem kleinen Menü wenn man auf das Drei Punkte Icon klickt
+
     export let setDrawerOpen;
 
     let menu;

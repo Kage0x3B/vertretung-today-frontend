@@ -9,6 +9,9 @@
     import {getContext, onMount} from "svelte";
     import NavLinkItem from "./NavLinkItem.svelte";
 
+    // Die Navigation die auf Smartphones ausgeklappt werden kann und auf Computern
+    // immer auf der linken Seite vorhanden ist
+
     export let open = false;
 
     let _open;

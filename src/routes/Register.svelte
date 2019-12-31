@@ -12,6 +12,8 @@
     import Button, {Label} from '@smui/button';
     import LinearProgress from '@smui/linear-progress';
 
+    // Typische Seite zum registrieren mit Benutzername, Passwort und Passwort bestätigen.
+
     let username = "";
     let password = "";
     let passwordConfirm = "";

@@ -8,6 +8,9 @@
     import {Icon} from '@smui/common';
     import IconButton from '@smui/icon-button';
 
+    // Dashboard Karte die angezeigt wird wenn der Browser durch ein Event gesagt hat,
+    // dass die Website bereit ist, als PWA installiert zu werden.
+
     function showInstallDialog() {
         util.showInstallDialog();
     }

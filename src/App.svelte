@@ -18,6 +18,12 @@
 
     import initI18N from "./i18n/i18n";
 
+    // Die Haupt Svelte Datei und Komponente der App.
+    // Beinhaltet einige Funktionen die auf allen Seiten benutzt werden wie das Anzeigen
+    // einer Snackbar (Android Sprache für eine Benachrichtigung oft unten am Bildschirm),
+    // kümmert sich um das Event zum Installieren der App,
+    // stellt viele Teile des Layouts der App bereit, die Übersetzungsfunktion und vieles mehr
+
     let kitchen;
     let installDialog;
     let drawerOpen = false;

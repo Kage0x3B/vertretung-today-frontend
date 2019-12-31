@@ -4,6 +4,10 @@ import {CacheFirst, NetworkOnly, StaleWhileRevalidate} from "workbox-strategies"
 import {Plugin as ExpirationPlugin} from "workbox-expiration";
 import {Plugin as CacheableResponsePlugin} from "workbox-cacheable-response";
 
+// Ein Service Worker ist von der eigentlichen Website losgelöster Code, der im Hintergrund läuft und sich
+// bei dieser App hauptsächlich darum kümmert, den Cache der benötigten Dateien zu verwalten und die ganze
+// App auch Offline bereitzustellen
+
 self.addEventListener('message', (event) => {
     if (event.data && event.data.type === 'SKIP_WAITING') {
         self.skipWaiting();

@@ -3,6 +3,8 @@
     import util from "../../util/util";
     import List, {Item, Text, PrimaryText, SecondaryText, Graphic, Meta} from '@smui/list';
 
+    // Vertretungseintrag in der Liste auf den Vertretungsplan Seiten
+
     export let entry;
     export let action;
 </script>

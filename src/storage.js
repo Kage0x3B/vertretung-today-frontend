@@ -1,3 +1,6 @@
+// Kümmert sich um alles mit dem Javascript Localstorage um Werte zu speichern damit diese
+// nicht beim Neuladen der Seite verloren gehen.
+
 function store(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
 }

@@ -12,6 +12,9 @@
     import Button, {Label} from '@smui/button';
     import LinearProgress from '@smui/linear-progress';
 
+    // Eine ziemlich typische Login Seite, Benutzername, Passwort und ein kleiner Hinweis auf die Registrier Seite falls
+    // man noch keinen Account hat
+
     let username = "";
     let password = "";
 

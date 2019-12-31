@@ -5,6 +5,9 @@
     import Dialog, {Title, Content, Actions} from '@smui/dialog';
     import Button, {Label} from '@smui/button';
 
+    // Dialog auf der Vertretungsplan Seite der die genauen Details eines Eintrags anzeigt,
+    // sowas wie Bemerkung, falls eine vorhanden ist, und viel mehr
+
     export let entry = {
         course: "",
         grade: "",

@@ -9,6 +9,9 @@
     import Select, {Option} from '@smui/select';
     import SelectHelperText from '@smui/select/helper-text/index';
 
+    // Teil der "Einstellungen" Seite, dieser enthält Einstellungen zu der Stufe, und Klasse
+    // oder Kursen die ein Schüler belegt, um den Vertretungsplan zu personalisieren und zu filtern
+
     const GRADES = [5, 6, 7, 8, 9, 10, 11, 12, 13];
     const GRADE_ADDITION_REGEX = /^[a-z]$/;
     const COURSE_LIST_REGEX = /^([0-9]{1,2}[a-z]{1,2}[0-9]{1,2})(, ?[0-9]{1,2}[a-z]{1,2}[0-9]{1,2})*$/i;

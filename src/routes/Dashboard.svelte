@@ -15,6 +15,9 @@
     import InstallReadyCard from "../_components/dashboard/InstallReadyCard.svelte";
     import SubstitutionInfoCard from "../_components/dashboard/SubstitutionInfoCard.svelte";
 
+    // Dashboard Seite die kommt wenn man eingeloggt ist. Bis jetzt mit Zusammenfassungen der Vertretungseinträge
+    // und einer Karte wenn die App installiert werden kann
+
     let summaryPromise = api.substitutionPlan.getSummary();
 </script>
 

@@ -13,6 +13,9 @@
     import SubstitutionEntryDialog from "../_components/substitutionPlan/SubstitutionEntryDialog.svelte";
     import {title} from "../stores/tempStore";
 
+    // Seite um einen Vertretungsplan als Liste von Vertretungseinträgen darzustellen.
+    // Wird für beide Seiten, Vertretung Heute und Danach, benutzt.
+
     export let date = "today";
     const today = date === "today";
 

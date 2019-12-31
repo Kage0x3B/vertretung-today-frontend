@@ -11,6 +11,9 @@
     import LinearProgress from '@smui/linear-progress';
     import GeneralSettings from "../_components/settings/GeneralSettings.svelte";
 
+    // Seite mit Einstellungen. Die eigentlichen Einstellungen sind in weitere Komponenten ausgelagert wie z.B.
+    // die "GeneralSettings" Komponente
+
     let updateGeneralSettings;
     let generalSettingsInvalid;
 

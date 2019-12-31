@@ -1,3 +1,5 @@
+// API zum herunterladen und speicher von Benutzereinstellungen
+
 export default function (axios) {
     const get = () => {
         return new Promise(function (resolve, reject) {

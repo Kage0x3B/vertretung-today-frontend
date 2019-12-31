@@ -1,6 +1,7 @@
 import {get as getFromStore} from "svelte/store";
 import {grade} from "../stores/permanentStore";
 
+// API zum herunterladen von Vertretungsplan Einträgen und weiteren Informationen und der Zusammenfassung für das Dashboard
 export default function (axios) {
     function getSummary() {
         return axios.get("/substitutionPlan/summary", {

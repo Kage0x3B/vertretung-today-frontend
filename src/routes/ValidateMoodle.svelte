@@ -12,6 +12,8 @@
     import Button, {Label} from '@smui/button';
     import LinearProgress from '@smui/linear-progress';
 
+    // Diese Seite stellt die Account Bestätigung mit Moodle zur Verfügung
+
     let accountUsername = $tempUsername;
     let moodleUsername = "";
     let moodlePassword = "";

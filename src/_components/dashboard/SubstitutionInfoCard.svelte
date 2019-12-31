@@ -7,6 +7,9 @@
     import IconButton from '@smui/icon-button';
     import {navigate} from "svelte-routing";
 
+    // Dashboard Karte, die die Zusammenfassung der Vertretungspläne anzeigt
+    // mit Nachricht des Tages und Anzahl der Vertretungen
+
     export let date = "today";
     export let summaryData = {
         amountToday: -1,

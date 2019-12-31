@@ -1,3 +1,5 @@
+// Datei mit vielen Hilfsfunktionen die sonst nicht gut passen und ein paar anderen Daten
+
 const SUBSTITUTION_TYPE_ICONS = {
     "SUBSTITUTION": "error_outline",
     "CANCELLED": "close",

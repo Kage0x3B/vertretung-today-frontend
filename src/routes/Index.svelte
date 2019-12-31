@@ -3,6 +3,9 @@
     import {onMount} from "svelte";
     import {navigate} from "svelte-routing";
 
+    // Diese Route kümmert sich um die "/" URL und leitet den Benutzer direkt weiter, je nachdem,
+    // ob dieser eingeloggt ist oder nicht.
+
     onMount(() => {
         if ($loggedIn) {
             navigate("/dashboard", {replace: true});

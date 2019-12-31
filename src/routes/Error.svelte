@@ -3,6 +3,10 @@
     import BasePage from "../_components/BasePage.svelte";
     import { links } from "svelte-routing";
     import Button, {Label, Icon} from '@smui/button';
+
+    // Diese Route wird immer geladen, wenn die Seite in der URL nicht gefunden werden konnte, also eine
+    // Art 404-Seite. (Obwohl es eigentlich bei einer SPA keine 404-Seiten gibt, alle Anfragen werden direkt von
+    // der index.html Datei bearbeitet)
 </script>
 
 <BasePage pageTitle={$_("page.error.title")} allowUnauthorized>

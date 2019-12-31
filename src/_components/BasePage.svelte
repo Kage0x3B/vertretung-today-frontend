@@ -6,6 +6,10 @@
     import {onMount} from "svelte";
     import {navigate} from "svelte-routing";
 
+    // Eine Komponente aus der alle anderen Seiten bestehen, die Teile des
+    // App Layouts bereit stellt und einige andere Werkzeuge die oft von
+    // Seiten benutzt werden wie z.B. das Überprüfen ob ein Benutzer eingeloggt ist
+
     export let pageTitle = "";
     export let backBtn = false;
     export let back = "";

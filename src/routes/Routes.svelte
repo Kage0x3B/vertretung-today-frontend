@@ -11,6 +11,9 @@
     import SubstitutionPlan from "./SubstitutionPlan.svelte";
     import Settings from "./Settings.svelte";
     import FileList from "./FileList.svelte";
+
+    // Diese Datei dient als eine Info für den Router, ein Programm das die URLs auf die passenden Seiten
+    // weiterleitet bei einer Single Page App
 </script>
 
 <!--

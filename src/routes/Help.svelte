@@ -1,6 +1,8 @@
 <script>
     import {_} from "svelte-i18n";
     import BasePage from "../_components/BasePage.svelte";
+
+    // Wird später zu einer Hilfe und "Über die App" Seite..
 </script>
 
 <BasePage pageTitle={$_("page.help.title")} allowUnauthorized>

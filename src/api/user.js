@@ -1,3 +1,5 @@
+// API fürs Einloggen, registrieren, Account mit Moodle bestätigen usw.
+
 export default function (axios) {
     function handleAuthError(reject) {
         return function (error) {
@@ -38,6 +40,8 @@ export default function (axios) {
         });
     }
 
+    // Die Anfragen sind alle sehr ähnlich, deswegen wird hier nur die URL und Parameter angegeben und in eine Helfer
+    // Funktion gepackt
     const checkAuth = () => axios.get("/checkAuth");
     const register = (username, password) => postAuthRequest("/auth/register", {username, password});
     const login = (username, password) => postAuthRequest("/auth/login", {username, password});
