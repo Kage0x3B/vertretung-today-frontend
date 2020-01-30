@@ -1,6 +1,6 @@
 import {registerRoute, setDefaultHandler, registerNavigationRoute} from "workbox-routing";
 import {precacheAndRoute, getCacheKeyForURL} from "workbox-precaching";
-import {CacheFirst, NetworkOnly, StaleWhileRevalidate} from "workbox-strategies";
+import {CacheFirst, NetworkOnly, NetworkFirst, StaleWhileRevalidate} from "workbox-strategies";
 import {Plugin as ExpirationPlugin} from "workbox-expiration";
 import {Plugin as CacheableResponsePlugin} from "workbox-cacheable-response";
 
@@ -86,7 +86,7 @@ registerRoute(
 );
 registerRoute(
     API_ROUTES.substitutionPlan,
-    new StaleWhileRevalidate()
+    new NetworkFirst()
 );
 registerRoute(
     API_ROUTES.fileGet,
@@ -102,7 +102,7 @@ registerRoute(
 );
 registerRoute(
     API_ROUTES.file,
-    new StaleWhileRevalidate()
+    new NetworkFirst()
 );
 
 //Fonts from Google
