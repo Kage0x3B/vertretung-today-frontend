@@ -1,14 +1,16 @@
-import {registerRoute, setDefaultHandler, registerNavigationRoute} from "workbox-routing";
-import {precacheAndRoute, getCacheKeyForURL} from "workbox-precaching";
-import {CacheFirst, NetworkOnly, NetworkFirst, StaleWhileRevalidate} from "workbox-strategies";
-import {Plugin as ExpirationPlugin} from "workbox-expiration";
-import {Plugin as CacheableResponsePlugin} from "workbox-cacheable-response";
+import {NavigationRoute, registerRoute, setDefaultHandler} from "workbox-routing";
+import {createHandlerBoundToURL, precacheAndRoute} from "workbox-precaching";
+import {CacheFirst, NetworkFirst, NetworkOnly, StaleWhileRevalidate} from "workbox-strategies";
+import {ExpirationPlugin} from "workbox-expiration";
+import {CacheableResponsePlugin} from "workbox-cacheable-response";
 
 self.addEventListener('message', (event) => {
     if (event.data && event.data.type === 'SKIP_WAITING') {
         self.skipWaiting();
     }
 });
+
+const DEBUG = "__buildEnv__" === "dev";
 
 const API_ROUTES_DEV = {
     auth: /\/auth\//,
@@ -26,9 +28,9 @@ const API_ROUTES_PROD = {
     fileGet: /\/api\/file\/get/,
 };
 
-const API_ROUTES = API_ROUTES_PROD;
+const API_ROUTES = DEBUG ? API_ROUTES_DEV : API_ROUTES_PROD;
 
-precacheAndRoute([]);
+precacheAndRoute(self.__WB_MANIFEST);
 
 const defaultStrategy = new CacheFirst({
     cacheName: "vt-default",
@@ -53,14 +55,12 @@ setDefaultHandler(
     }
 );
 
-registerNavigationRoute(
-    getCacheKeyForURL('/index.html'),
-    {
-        blacklist: [
-            API_ROUTES.auth, API_ROUTES.userSettings, API_ROUTES.substitutionPlan, API_ROUTES.file
-        ],
-    }
-);
+const spaHandler = createHandlerBoundToURL("/index.html");
+const spaNavigationRoute = new NavigationRoute(spaHandler, {
+    allowlist: [],
+    denylist: [API_ROUTES.auth, API_ROUTES.userSettings, API_ROUTES.substitutionPlan, API_ROUTES.file]
+});
+registerRoute(spaNavigationRoute);
 
 registerRoute(
     /\.(?:png|gif|jpg|jpeg|webp|svg|ico)$/,

@@ -18,7 +18,7 @@ export default {
         }),
         commonjs(),
         replace({
-            'process.env.NODE_ENV': JSON.stringify(DEBUG ? 'development' : 'production'),
+            __buildEnv__: DEBUG ? "dev" : "production"
         }),
         terser(),
     ]
