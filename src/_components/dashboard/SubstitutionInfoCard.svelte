@@ -49,7 +49,7 @@
         {/if}
     </Content>
     <Actions fullBleed>
-        <Button on:click={() => navigate("/substitutionPlan/" + date)} disabled={entryAmount < 1}>
+        <Button on:click={() => navigate("/substitution-plan/" + date)} disabled={entryAmount < 1}>
             <Label>
                 {$_("dashboardCard.summary.amount", {values: {entryAmount}})}
             </Label>

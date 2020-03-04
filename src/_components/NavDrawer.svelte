@@ -48,11 +48,11 @@
                         <Graphic class="material-icons" aria-hidden="true">home</Graphic>
                         <Text>{$_("navDrawer.items.dashboard")}</Text>
                     </NavLinkItem>
-                    <NavLinkItem to="/substitutionPlan/today" on:click={close}>
+                    <NavLinkItem to="/substitution-plan/today" on:click={close}>
                         <Graphic class="material-icons" aria-hidden="true">event_note</Graphic>
                         <Text>{$_("navDrawer.items.substitutionToday")}</Text>
                     </NavLinkItem>
-                    <NavLinkItem to="/substitutionPlan/tomorrow" on:click={close}>
+                    <NavLinkItem to="/substitution-plan/tomorrow" on:click={close}>
                         <Graphic class="material-icons" aria-hidden="true">event_note</Graphic>
                         <Text>{$_("navDrawer.items.substitutionTomorrow")}</Text>
                     </NavLinkItem>

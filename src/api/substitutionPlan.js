@@ -9,7 +9,7 @@ export default function (axios) {
     }
 
     function getSummary() {
-        return axios.get("/substitutionPlan/summary", {
+        return axios.get("/substitution-plan/summary", {
             params: {
                 grade: getFromStore(grade),
                 gradeAddition: getFromStore(gradeAddition),
@@ -19,7 +19,7 @@ export default function (axios) {
     }
 
     function get(date) {
-        return axios.get("/substitutionPlan/get/" + date, {
+        return axios.get("/substitution-plan/get/" + date, {
             params: {
                 grade: getFromStore(grade),
                 gradeAddition: getFromStore(gradeAddition),

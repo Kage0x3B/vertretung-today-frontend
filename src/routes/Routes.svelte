@@ -17,10 +17,10 @@
 This needs to be split up instead of using path params to prevent using the same base page
 for a different substitution plan page might cause issues with title updating etc.
 -->
-<Route path="/substitutionPlan/today">
+<Route path="/substitution-plan/today">
     <SubstitutionPlan date="today"/>
 </Route>
-<Route path="/substitutionPlan/tomorrow">
+<Route path="/substitution-plan/tomorrow">
     <SubstitutionPlan date="tomorrow"/>
 </Route>
 <Route path="/files">
