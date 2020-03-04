@@ -52,9 +52,9 @@
                         <Graphic class="material-icons" aria-hidden="true">event_note</Graphic>
                         <Text>{$_("navDrawer.items.substitutionToday")}</Text>
                     </NavLinkItem>
-                    <NavLinkItem to="/substitutionPlan/next" on:click={close}>
+                    <NavLinkItem to="/substitutionPlan/tomorrow" on:click={close}>
                         <Graphic class="material-icons" aria-hidden="true">event_note</Graphic>
-                        <Text>{$_("navDrawer.items.substitutionNext")}</Text>
+                        <Text>{$_("navDrawer.items.substitutionTomorrow")}</Text>
                     </NavLinkItem>
                     <Separator nav/>
                     <NavLinkItem to="/files" on:click={close}>

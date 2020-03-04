@@ -1,17 +1,15 @@
 import axios from "axios";
 import storage from "../storage";
-import permanentStore from "../stores/permanentStore";
 
 import user from "./user";
 import substitutionPlan from "./substitutionPlan";
 import userSettings from "./userSettings";
 import fileList from "./fileList";
 
-const DEBUG = false;
+const DEBUG = "__buildEnv__" === "dev";
+const baseURL = "__buildEnv__" === "dev" ? "http://127.0.0.1:4556" : "https://app.vertretungtoday.de/api";
 
-const axiosInstance = axios.create({
-    baseURL: "https://app.vertretungtoday.de/api"
-});
+const axiosInstance = axios.create({baseURL});
 
 axiosInstance.interceptors.response.use(function (response) {
     if (DEBUG) {
@@ -36,7 +34,7 @@ function setJwtToken(token) {
 
     jwtToken = token;
 
-    if(jwtToken) {
+    if (jwtToken) {
         axiosInstance.defaults.headers.common['Authorization'] = "Bearer " + jwtToken;
     } else {
         axiosInstance.defaults.headers.common['Authorization'] = "";

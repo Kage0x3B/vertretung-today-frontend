@@ -14,15 +14,36 @@
     import {title} from "../stores/tempStore";
     import FileListItem from "../_components/fileList/FileListItem.svelte";
     import FileInfoDialog from "../_components/fileList/FileInfoDialog.svelte";
+    import CategoryNameItem from "../_components/fileList/CategoryNameItem.svelte";
 
-    let fileList;
+    let fileCategories = [];
 
     let dialog;
     let dialogFileInfo;
 
     let fileListPromise = api.fileList.list();
     fileListPromise.then(function (response) {
-        fileList = response.data.payload;
+        const fileList = response.data.payload;
+        const tempCategories = {};
+
+        for (let i = 0; i < fileList.length; i++) {
+            const sectionName = fileList[i].sectionName ? fileList[i].sectionName : "general";
+
+            if (!tempCategories[sectionName]) {
+                tempCategories[sectionName] = [];
+            }
+
+            tempCategories[sectionName].push(fileList[i]);
+        }
+
+        console.log(tempCategories);
+
+        Object.keys(tempCategories).forEach(function (key) {
+            fileCategories.push({
+                categoryName: key,
+                fileList: tempCategories[key]
+            });
+        });
     });
 
     function openDialog(fileInfo) {
@@ -31,7 +52,7 @@
     }
 
     let emptyList;
-    $: emptyList = !fileList || fileList.length < 1;
+    $: emptyList = fileCategories.length;
 </script>
 
 <BasePage pageTitle={$_("page.fileList.title")}>
@@ -48,8 +69,13 @@
                 <hr>
             {/if}
             <List nonInteractive={emptyList}>
-                {#each fileList as fileInfo}
-                    <FileListItem {fileInfo} action={() => openDialog(fileInfo)}/>
+                {#each fileCategories as fileCategory}
+                    {#if fileCategory.categoryName !== "general"}
+                        <CategoryNameItem categoryName={fileCategory.categoryName}/>
+                    {/if}
+                    {#each fileCategory.fileList as fileInfo}
+                        <FileListItem {fileInfo} action={() => openDialog(fileInfo)}/>
+                    {/each}
                 {:else}
                     <Item ripple={false}>
                         <Graphic class="material-icons md-48">folder_open</Graphic>

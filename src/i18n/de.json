@@ -30,7 +30,7 @@
     "summary": {
       "title": {
         "today": "Vertretungsplan Heute",
-        "next": "Vertretungsplan {day, date, medium}"
+        "tomorrow": "Vertretungsplan {day, date, medium}"
       },
       "motd": "Nachricht des Tages",
       "noMotd": "Keine Nachricht des Tages",
@@ -72,7 +72,7 @@
       "install": "Installieren",
       "dashboard": "Startseite",
       "substitutionToday": "Vertretung Heute",
-      "substitutionNext": "Vertretung Danach",
+      "substitutionTomorrow": "Vertretung Morgen",
       "files": "Downloads",
       "settings": "Einstellungen"
     }
@@ -92,8 +92,8 @@
     "substitutionPlan": {
       "title": {
         "today": "Vertretungsplan Heute",
-        "next": "Vertretungsplan Danach",
-        "nextDate": "Vertretungsplan {day, date, medium}"
+        "tomorrow": "Vertretungsplan Morgen",
+        "tomorrowDate": "Vertretungsplan {day, date, medium}"
       },
       "entry": {
         "title": {
@@ -154,6 +154,7 @@
       "dialog": {
         "url": "Orignale URL: {url}",
         "fileType": "Dateityp: {fileType}",
+        "category": "Kategorie: {category}",
         "downloadAction": "Herunterladen"
       }
     },

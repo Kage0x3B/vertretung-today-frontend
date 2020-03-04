@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import {terser} from 'rollup-plugin-terser';
 import json from '@rollup/plugin-json';
+import replace from '@rollup/plugin-replace';
 
 import autoPreprocess from 'svelte-preprocess';
 import postcss from 'rollup-plugin-postcss';
@@ -25,6 +26,7 @@ export default {
     },
     plugins: [
         json(),
+        replace({__buildEnv__: production ? "production" : "dev"}),
         svelte({
             // enable run-time checks when not in production
             dev: !production,

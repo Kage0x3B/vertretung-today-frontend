@@ -22,7 +22,7 @@
         $grade = gradeVal;
 
         if (gradeVal > 0 && gradeVal <= 10) {
-            $gradeAddition = gradeAddition;
+            $gradeAddition = gradeAdditionVal;
             $courses = [];
         } else if (gradeVal > 10) {
             $courses = courseList.split(",").map((e) => e.trim());

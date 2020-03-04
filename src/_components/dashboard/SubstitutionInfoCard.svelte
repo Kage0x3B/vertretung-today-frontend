@@ -28,41 +28,37 @@
     const entryAmount = today ? summaryData.amountToday : summaryData.amountNext;
     const motd = summaryData.motd[date] ? summaryData.motd[date].message : "";
     const day = today ? new Date() : new Date(summaryData.nextDate);
-
-    const isVisible = entryAmount > 0 || date === "today";
 </script>
 
-{#if isVisible}
-    <Card class="dashboard-card">
-        <Content class="mdc-typography--body2">
-            <h2 class="mdc-typography--headline5">
-                <Icon class="dashboard-title-icon material-icons">info</Icon>
-                {$_("dashboardCard.summary.title." + date, {values: {day}})}
-            </h2>
-            <hr>
-            {#if motd}
-                <p class="mdc-typography--caption caption-gray">
-                    {$_("dashboardCard.summary.motd")}
-                </p>
-                <div class="motd">{@html motd}</div>
-            {:else}
-                <p class="mdc-typography--caption caption-gray">
-                    {$_("dashboardCard.summary.noMotd")}
-                </p>
+<Card class="dashboard-card">
+    <Content class="mdc-typography--body2">
+        <h2 class="mdc-typography--headline5">
+            <Icon class="dashboard-title-icon material-icons">{entryAmount > 0 ? "warning" : "info"}</Icon>
+            {$_("dashboardCard.summary.title." + date, {values: {day}})}
+        </h2>
+        <hr>
+        {#if motd}
+            <p class="mdc-typography--caption caption-gray">
+                {$_("dashboardCard.summary.motd")}
+            </p>
+            <div class="motd">{@html motd}</div>
+        {:else}
+            <p class="mdc-typography--caption caption-gray">
+                {$_("dashboardCard.summary.noMotd")}
+            </p>
+        {/if}
+    </Content>
+    <Actions fullBleed>
+        <Button on:click={() => navigate("/substitutionPlan/" + date)} disabled={entryAmount < 1}>
+            <Label>
+                {$_("dashboardCard.summary.amount", {values: {entryAmount}})}
+            </Label>
+            {#if entryAmount > 0}
+                <Icon class="material-icons">arrow_forward</Icon>
             {/if}
-        </Content>
-        <Actions fullBleed>
-            <Button on:click={() => navigate("/substitutionPlan/" + date)} disabled={entryAmount < 1}>
-                <Label>
-                    {$_("dashboardCard.summary.amount", {values: {entryAmount}})}
-                </Label>
-                {#if entryAmount > 0}
-                    <Icon class="material-icons">arrow_forward</Icon>
-                {/if}
-            </Button>
-        </Actions>
-    </Card>
-{/if}
+        </Button>
+    </Actions>
+</Card>
 
 <style>
     :global(.caption-gray) {

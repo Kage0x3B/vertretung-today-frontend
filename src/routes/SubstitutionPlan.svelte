@@ -36,7 +36,7 @@
         tableEntries = convertPlanEntriesForTable(entries);
 
         if (!today) {
-            _title = $_("page.substitutionPlan.title.nextDate", {values: {day}});
+            _title = $_("page.substitutionPlan.title.tomorrowDate", {values: {day}});
         }
     });
 

@@ -27,7 +27,7 @@
             </div>
         {:then summaryData}
             <SubstitutionInfoCard date="today" summaryData={summaryData.data.payload}/>
-            <SubstitutionInfoCard date="next" summaryData={summaryData.data.payload}/>
+            <SubstitutionInfoCard date="tomorrow" summaryData={summaryData.data.payload}/>
         {:catch error}
             {error}
         {/await}

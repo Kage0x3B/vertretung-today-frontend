@@ -20,8 +20,8 @@ for a different substitution plan page might cause issues with title updating et
 <Route path="/substitutionPlan/today">
     <SubstitutionPlan date="today"/>
 </Route>
-<Route path="/substitutionPlan/next">
-    <SubstitutionPlan date="next"/>
+<Route path="/substitutionPlan/tomorrow">
+    <SubstitutionPlan date="tomorrow"/>
 </Route>
 <Route path="/files">
     <FileList/>

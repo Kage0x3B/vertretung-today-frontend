@@ -10,6 +10,7 @@
     export let fileInfo = {
         id: -1,
         type: "",
+        sectionName: "",
         url: "",
         fileName: "",
         mimeType: ""
@@ -18,7 +19,7 @@
     let fileTypeKey;
 
     $: {
-        if(fileInfo && util.MIME_TYPE_ICONS[fileInfo.mimeType]) {
+        if (fileInfo && util.MIME_TYPE_ICONS[fileInfo.mimeType]) {
             fileTypeKey = "mimeType." + fileInfo.mimeType.replace("/", ".");
         } else {
             fileTypeKey = "mimeType.application.octet-stream";
@@ -44,6 +45,9 @@
         {fileInfo.fileName}
     </Title>
     <Content>
+        {#if fileInfo.sectionName}
+            <span>{$_("page.fileList.dialog.category", {values: {category: fileInfo.sectionName}})}</span>
+        {/if}
         <span>{$_("page.fileList.dialog.url", {values: {url: fileInfo.url}})}</span>
         <span>
             {$_("page.fileList.dialog.fileType", {
