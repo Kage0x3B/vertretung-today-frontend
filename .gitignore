@@ -1,4 +1,5 @@
 /public/build/
+/public/sw.js
 build/
 .idea/deployment.xml
 .idea/webServers.xml
@@ -75,30 +76,6 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
-
-# parcel-bundler cache (https://parceljs.org/)
-.cache
-
-# next.js build output
-.next
-
-# nuxt.js build output
-.nuxt
-
-# react / gatsby 
-public/
-
-# vuepress build output
-.vuepress/dist
-
-# Serverless directories
-.serverless/
-
-# FuseBox cache
-.fusebox/
-
-# DynamoDB Local files
-.dynamodb/
 
 ### WebStorm ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm

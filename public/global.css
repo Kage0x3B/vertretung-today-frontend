@@ -1,0 +1,85 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Roboto, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none;
+
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+/* Add the tap highlight color only for some elements to improve UX */
+input, select, textarea, button {
+    -webkit-tap-highlight-color: #ccc;
+}
+
+a {
+    outline: 0;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    width: 100%;
+    color: #ddd;
+    background-color: #ddd;
+}
+
+.material-icons.md-18 {
+    font-size: 18px;
+}
+
+.material-icons.md-24 {
+    font-size: 24px;
+}
+
+.material-icons.md-36 {
+    font-size: 36px;
+}
+
+.material-icons.md-48 {
+    font-size: 48px;
+}
+
+.material-icons.md-dark {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.material-icons.md-dark.md-inactive {
+    color: rgba(0, 0, 0, 0.26);
+}
+
+html {
+    scrollbar-color: #dd2222 #ccc;
+    scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #ccc;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #dd5555;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #dd2222;
+}
