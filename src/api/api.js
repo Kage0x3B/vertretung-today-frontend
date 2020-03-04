@@ -7,7 +7,7 @@ import userSettings from "./userSettings";
 import fileList from "./fileList";
 
 const DEBUG = "__buildEnv__" === "dev";
-const baseURL = "__buildEnv__" === "dev" ? "http://127.0.0.1:4556" : "https://app.vertretungtoday.de/api";
+const baseURL = DEBUG ? "http://127.0.0.1:4556" : "https://app.vertretungtoday.de/api";
 
 const axiosInstance = axios.create({baseURL});
 
