@@ -41,7 +41,7 @@
     "svelte-preprocess": "^3.4.0"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "js-file-download": "^0.4.10",
     "sirv-cli": "^0.4.4",
     "svelte-i18n": "^2.3.1",
